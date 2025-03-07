@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image';
-import Header from '../components/Header';
+import Header from '@/components/Header';
 import { BsGithub, BsLinkedin, BsFillPhoneFill, BsFillEnvelopeFill } from 'react-icons/bs';
 import { FaCopy } from "react-icons/fa";
 import { useState } from 'react';
@@ -72,7 +72,7 @@ export default function Home() {
           {/* Copy Email Button */}
           <button
             onClick={copyEmail}
-            className="flex items-center space-x-2 hover:text-blue-400"
+            className="flex items-center space-x-2 hover:text-blue-400 cursor-pointer"
           >
             <FaCopy size={20} />
             <span>{isCopied ? "Copied!" : "Copy Email"}</span>

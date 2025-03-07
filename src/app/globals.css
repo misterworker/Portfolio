@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-:root {
-  --background: #cbcaca;
+root {
+  --background: #ebeaea;
   --foreground: #171717;
 }
 
@@ -12,13 +12,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #cbcaca;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -26,5 +19,19 @@ body {
 }
 
 .text-gray-300, .text-xl, .text-lg, .text-center {
-  color: var(--foreground); /* text colour is controlled by theme */
+  color: var(--foreground);
+}
+
+.card {
+  background-color: var(--card-background);
+  color: var(--card-text);
+}
+
+.card h2, .card p {
+  color: var(--card-text);
+}
+
+.searchbar {
+  background-color: var(--searchbar-background);
+  color: var(--searchbar-text);
 }
