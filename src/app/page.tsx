@@ -1,8 +1,25 @@
+"use client"
+
 import Image from 'next/image';
 import Header from '../components/Header';
 import { BsGithub, BsLinkedin, BsFillPhoneFill, BsFillEnvelopeFill } from 'react-icons/bs';
+import { FaCopy } from "react-icons/fa";
+import { useState } from 'react';
 
 export default function Home() {
+  const [isCopied, setIsCopied] = useState(false);
+
+  // Function to handle copying email to clipboard
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("ethanroo2016@gmail.com");
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset the copied state after 2 seconds
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -52,6 +69,14 @@ export default function Home() {
             <BsFillEnvelopeFill size={20} />
             <span>Email</span>
           </a>
+          {/* Copy Email Button */}
+          <button
+            onClick={copyEmail}
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <FaCopy size={20} />
+            <span>{isCopied ? "Copied!" : "Copy Email"}</span>
+          </button>
         </div>
 
         {/* About Me Section */}
