@@ -22,8 +22,8 @@ export default function Home() {
         <div className="flex space-x-6 text-lg mb-6">
           <a
             href="https://github.com/misterworker"
-            target="_blank" //? opens in new tab
-            rel="noopener noreferrer" //? prevents new page from accessing this page's window.opener property
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center space-x-2 hover:text-blue-400"
           >
             <BsGithub size={20} />
@@ -56,16 +56,25 @@ export default function Home() {
 
         {/* About Me Section */}
         <section className="max-w-xl text-center">
-          <p className="text-xl font-semibold mb-4">
+          <p className="text-xl font-semibold mb-6">
             Application Developer, Data Analyst, Casual Armwrestler.
           </p>
-          <p className="text-gray-300">
+          <p className="text-gray-300 mb-4">
             I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at <b>Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects (Including this!).
           </p>
-          <br />
-          <p className="text-gray-300">
+          <p className="text-gray-300 mb-6">
             I also take an interest in fitness, casually trying out powerlifting, bodybuilding, and most recently <b>armwrestling</b>.
           </p>
+        </section>
+
+        {/* Call to Action - View Projects */}
+        <section className="mt-10 text-center">
+          <a
+            href="/projects"  // Link to your projects page (update as needed)
+            className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
+          >
+            View My Projects
+          </a>
         </section>
       </main>
     </>

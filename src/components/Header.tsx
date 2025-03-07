@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
 import { BsSun, BsMoon } from "react-icons/bs";
+import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -15,11 +16,35 @@ export default function Header() {
     { name: "Stats", href: "/stats" },
   ];
 
+  // State to manage header visibility
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Track scroll direction
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        if (window.scrollY > lastScrollY.current) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
+        lastScrollY.current = window.scrollY;
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    
+    // Cleanup on component unmount
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
-      className={`w-full flex justify-between items-center px-8 py-4 shadow-md transition-all ${
+      className={`w-full fixed top-0 left-0 right-0 flex justify-between items-center px-8 py-4 shadow-md transition-all z-50 ${
         theme === "dark" ? "bg-gray-900" : "bg-white"
-      }`}
+      } ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       {/* Navigation - Centered */}
       <nav
