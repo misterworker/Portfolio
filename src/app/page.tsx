@@ -1,101 +1,73 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Header from '../components/Header';
+import { BsGithub, BsLinkedin, BsFillPhoneFill, BsFillEnvelopeFill } from 'react-icons/bs';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <>
+      <Header />
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 text-white">
+        {/* Profile Picture */}
+        <div className="mb-6">
+          <Image
+            src="/images/others/goober_pfp.jpg"
+            alt="Profile Picture"
+            width={150}
+            height={150}
+            className="rounded-full border-4 border-gray-500"
+          />
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        {/* Social Links */}
+        <div className="flex space-x-6 text-lg mb-6">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://github.com/misterworker"
+            target="_blank" //? opens in new tab
+            rel="noopener noreferrer" //? prevents new page from accessing this page's window.opener property
+            className="flex items-center space-x-2 hover:text-blue-400"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            <BsGithub size={20} />
+            <span>GitHub</span>
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://www.linkedin.com/in/ethan-lee-224659251"
             target="_blank"
             rel="noopener noreferrer"
+            className="flex items-center space-x-2 hover:text-blue-400"
           >
-            Read our docs
+            <BsLinkedin size={20} />
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="tel:+1234567890"
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <BsFillPhoneFill size={20} />
+            <span>Phone</span>
+          </a>
+          <a
+            href="mailto:ethanroo2016@gmail.com"
+            className="flex items-center space-x-2 hover:text-blue-400"
+          >
+            <BsFillEnvelopeFill size={20} />
+            <span>Email</span>
           </a>
         </div>
+
+        {/* About Me Section */}
+        <section className="max-w-xl text-center">
+          <p className="text-xl font-semibold mb-4">
+            Application Developer, Data Analyst, Casual Armwrestler.
+          </p>
+          <p className="text-gray-300">
+            I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at <b>Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects (Including this!).
+          </p>
+          <br />
+          <p className="text-gray-300">
+            I also take an interest in fitness, casually trying out powerlifting, bodybuilding, and most recently <b>armwrestling</b>.
+          </p>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
