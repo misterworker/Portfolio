@@ -62,7 +62,7 @@ export default function ProjectCard({
       <div className="mt-4">
         <button
           onClick={() => toggleDescription(slug)}
-          className="text-blue-500 hover:text-blue-400"
+          className="text-blue-500 hover:text-blue-400 cursor-pointer"
         >
           {expandedProject === slug ? "Hide Description" : "Show Description"}
         </button>
