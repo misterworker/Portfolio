@@ -1,13 +1,24 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+
+// import swiper style
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// modules
+import { Pagination, Navigation } from 'swiper/modules';
 
 type ProjectCardProps = {
   title: string;
   description: string;
   slug: string;
   tags: string[];
-  media: string;
+  media: string | string[]; // media can be a single string or an array of strings
   githubRepo: string;
   expandedProject: string | null;
   toggleDescription: (slug: string) => void;
@@ -23,6 +34,12 @@ export default function ProjectCard({
   expandedProject,
   toggleDescription,
 }: ProjectCardProps) {
+  // Ensure media is always an array
+  const mediaArray = Array.isArray(media) ? media : [media];
+
+  // State to handle the swiper
+  const [swiperRef, setSwiperRef] = useState<any>(null);
+
   return (
     <div className="card p-6 rounded-md shadow-md transition-all">
       {/* Project Header */}
@@ -37,12 +54,34 @@ export default function ProjectCard({
         </Link>
       </div>
 
-      {/* Project Media */}
-      {media && (
+      {/* Project Media - Swiper Carousel */}
+      {mediaArray.length > 1 ? (
+        <div className="mt-4">
+          <Swiper
+            spaceBetween={10}
+            navigation={true}
+            pagination={{ clickable: false }}
+            onSwiper={setSwiperRef}
+            scrollbar={{ draggable: true }}
+            loop={true}
+            modules={[Pagination, Navigation]}
+          >
+            {mediaArray.map((image, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={image}
+                  alt={`${title} image ${index + 1}`}
+                  className="w-full h-auto rounded-md max-h-[300px] object-contain"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      ) : (
         <img
-          src={media}
+          src={mediaArray[0]}
           alt={title}
-          className="mt-4 w-full h-auto rounded-md"
+          className="mt-4 w-full h-auto rounded-md max-h-[500px] object-contain"
         />
       )}
 

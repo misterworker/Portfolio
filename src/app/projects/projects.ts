@@ -10,7 +10,7 @@ const projects = [
       `,
       slug: "Maibel AI App",
       tags: ["mobile", "react-native", "expo"],
-      media: "/images/project1.jpg",
+      media: ["/images/projects/maibel_app_thumbnail.jpg", "/images/projects/maibel_app_start.jpg"],
       githubRepo: "https://github.com/misterworker/Maibel-AI-App",
     },
     {
