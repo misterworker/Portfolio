@@ -67,7 +67,7 @@ export default function ProjectCard({
           {expandedProject === slug ? "Hide Description" : "Show Description"}
         </button>
         {expandedProject === slug && (
-          <p className="mt-2 text-gray-300">{description}</p>
+          <p className="mt-2 text-gray-300" dangerouslySetInnerHTML={{ __html: description }} />
         )}
       </div>
     </div>

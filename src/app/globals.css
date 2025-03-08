@@ -18,6 +18,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.project-link { /* Meant for text with links in project card desc */
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.project-link:hover {
+  color: #2563eb;
+}
+
 .text-gray-300, .text-xl, .text-lg, .text-center {
   color: var(--foreground);
 }
@@ -35,3 +44,4 @@ body {
   background-color: var(--searchbar-background);
   color: var(--searchbar-text);
 }
+

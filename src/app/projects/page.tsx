@@ -4,33 +4,7 @@ import { useState } from "react";
 import ProjectCard from "@/components/projects/ProjectCard";
 import Header from "@/components/Header";
 import TagFilter from "@/components/projects/TagFilter";
-
-const projects = [
-  {
-    title: "Project 1",
-    description: "This is a description for project 1.",
-    slug: "project-1",
-    tags: ["AI", "Data Science"],
-    media: "/images/project1.jpg",
-    githubRepo: "https://github.com/misterworker/project-1",
-  },
-  {
-    title: "Fitness App",
-    description: "A fitness app to track workouts.",
-    slug: "fitness-app",
-    tags: ["Fitness", "Mobile"],
-    media: "/images/fitness-app.jpg",
-    githubRepo: "https://github.com/misterworker/fitness-app",
-  },
-  {
-    title: "E-commerce Site",
-    description: "An online shopping platform.",
-    slug: "ecommerce-site",
-    tags: ["Web", "React"],
-    media: "/images/ecommerce.jpg",
-    githubRepo: "https://github.com/misterworker/ecommerce-site",
-  },
-];
+import projects from "./projects"
 
 // Extract unique tags from projects
 const allTags = [...new Set(projects.flatMap((project) => project.tags))];
