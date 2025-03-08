@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center justify-center min-h-screen p-6 text-white">
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 text">
         {/* Profile Picture */}
         <div className="mb-6">
           <Image
@@ -81,13 +81,13 @@ export default function Home() {
 
         {/* About Me Section */}
         <section className="max-w-xl text-center">
-          <p className="text-xl font-semibold mb-6">
+          <p className="text-xl text font-semibold mb-6">
             Application Developer, Data Analyst, Casual Armwrestler.
           </p>
-          <p className="text-gray-300 mb-4">
+          <p className="text mb-4">
             I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at <b>Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects (Including this!).
           </p>
-          <p className="text-gray-300 mb-6">
+          <p className="text mb-6">
             I also take an interest in fitness, casually trying out powerlifting, bodybuilding, and most recently <b>armwrestling</b>.
           </p>
         </section>

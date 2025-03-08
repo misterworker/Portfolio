@@ -27,7 +27,7 @@ body {
   color: #2563eb;
 }
 
-.text-gray-300, .text-xl, .text-lg, .text-center {
+.text {
   color: var(--foreground);
 }
 

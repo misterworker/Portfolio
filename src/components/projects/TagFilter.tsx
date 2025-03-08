@@ -29,7 +29,7 @@ export default function TagFilter({ tags, selectedTags, setSelectedTags }: TagFi
   };
 
   return (
-    <div className="p-4 bg-gray-900 rounded-lg shadow-md w-64">
+    <div className="p-4 card bg-gray-900 rounded-lg shadow-md w-64">
       {/* Action Buttons */}
         <div className="flex justify-between mb-3">
         <button
