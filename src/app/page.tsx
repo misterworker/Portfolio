@@ -9,7 +9,6 @@ import { useState } from 'react';
 export default function Home() {
   const [isCopied, setIsCopied] = useState(false);
 
-  // Function to handle copying email to clipboard
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText("ethanroo2016@gmail.com");
@@ -23,7 +22,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center justify-center min-h-screen p-6 text">
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 text overflow-x-hidden">
         {/* Profile Picture */}
         <div className="mb-6">
           <Image
@@ -31,17 +30,17 @@ export default function Home() {
             alt="Profile Picture"
             width={150}
             height={150}
-            className="rounded-full border-4 border-gray-500"
+            className="rounded-full border-4 border-gray-500 object-contain"
           />
         </div>
 
         {/* Social Links */}
-        <div className="flex space-x-6 text-lg mb-6">
+        <div className="flex flex-wrap justify-center space-x-6 text-lg mb-6 max-w-full w-full">
           <a
             href="https://github.com/misterworker"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 hover:text-blue-400"
+            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
           >
             <BsGithub size={20} />
             <span>GitHub</span>
@@ -50,21 +49,21 @@ export default function Home() {
             href="https://www.linkedin.com/in/ethan-lee-224659251"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 hover:text-blue-400"
+            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
           >
             <BsLinkedin size={20} />
             <span>LinkedIn</span>
           </a>
           <a
             href="tel:+1234567890"
-            className="flex items-center space-x-2 hover:text-blue-400"
+            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
           >
             <BsFillPhoneFill size={20} />
             <span>Phone</span>
           </a>
           <a
             href="mailto:ethanroo2016@gmail.com"
-            className="flex items-center space-x-2 hover:text-blue-400"
+            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
           >
             <BsFillEnvelopeFill size={20} />
             <span>Email</span>
@@ -72,7 +71,7 @@ export default function Home() {
           {/* Copy Email Button */}
           <button
             onClick={copyEmail}
-            className="flex items-center space-x-2 hover:text-blue-400 cursor-pointer"
+            className="flex items-center space-x-2 hover:text-blue-400 cursor-pointer mb-3"
           >
             <FaCopy size={20} />
             <span>{isCopied ? "Copied!" : "Copy Email"}</span>
@@ -80,8 +79,8 @@ export default function Home() {
         </div>
 
         {/* About Me Section */}
-        <section className="max-w-xl text-center">
-          <p className="text-xl text font-semibold mb-6">
+        <section className="max-w-xl text-center mb-10 w-full">
+          <p className="text-xl font-semibold mb-6">
             Application Developer, Data Analyst, Casual Armwrestler.
           </p>
           <p className="text mb-4">
@@ -93,9 +92,9 @@ export default function Home() {
         </section>
 
         {/* Call to Action - View Projects */}
-        <section className="mt-10 text-center">
+        <section className="text-center w-full">
           <a
-            href="/projects"  // Link to your projects page (update as needed)
+            href="/projects"
             className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
           >
             View My Projects

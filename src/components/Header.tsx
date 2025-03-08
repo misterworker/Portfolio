@@ -48,16 +48,16 @@ export default function Header() {
     >
       {/* Navigation */}
       <nav
-        className={`absolute left-1/2 transform -translate-x-1/2 flex space-x-8 text-lg font-medium rounded-md transition-all ${
+        className={`flex justify-between items-center space-x-8 text-lg font-medium rounded-md transition-all ${
           theme === "dark" ? "text-gray-100" : "text-gray-800"
-        }`}
+        } w-full max-w-4xl mx-auto`}
       >
         <ul className="flex space-x-8">
           {navItems.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`relative px-4 py-2 rounded-md transition-all ${
+                className={`relative px-2 py-2 rounded-md transition-all ${
                   pathname === item.href
                     ? "text-blue-400 font-bold before:absolute before:inset-x-0 before:-bottom-1 before:h-1 before:bg-blue-400"
                     : `hover:text-blue-500`
@@ -77,12 +77,13 @@ export default function Header() {
       >
         <div
           className={`absolute w-5 h-5 bg-white rounded-full shadow-md transition-transform duration-300 ${
-            theme === "dark" ? "translate-x-7" : "translate-x-0"
+            theme === "dark" ? "translate-x-0" : "translate-x-6"
           }`}
         />
         <BsSun className="absolute left-0.5 text-yellow-400" size={14} />
         <BsMoon className="absolute right-0.5 text-black" size={14} />
       </div>
     </header>
+
   );
 }
