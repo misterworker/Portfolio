@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import projects from '../projects';
 import slugProjects from './slugProjects';
+import ProjectPageClient from '@/components/projects/SlugClient';
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
 
@@ -18,29 +19,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="container mx-auto p-6">
-      {/* Back to Project link */}
-      <a
-        href="/projects" // Simple anchor tag to navigate back to the projects page
-        className="text-blue-500 hover:text-blue-400 mt-4 mb-4"
-      >
-        &larr; Back to Projects
-      </a>
-
-      <h1 className="text-3xl font-bold text-blue-400">{project.title}</h1>
-      <p className="text-gray-300 mt-2 text" dangerouslySetInnerHTML={{ __html: project.description }}/>
-
-      {/* Render GitHub link above the content */}
-      {project.githubRepo && (
-        <div className="mt-4">
-          <a
-            href={project.githubRepo}
-            target="_blank"
-            className="text-blue-500 hover:text-blue-400"
-          >
-            View on GitHub
-          </a>
-        </div>
-      )}
+      <ProjectPageClient project = {project}/>
 
       {/* Render media content based on type */}
       <div className="mt-6">
