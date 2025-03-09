@@ -8,7 +8,7 @@ const projects = [
       the application on playstore and apple store. I made this early version of the application solo, and stuck to it despite
       encountering <a href="https://stackoverflow.com/a/79362466/25544913" target="_blank" class="project-link">bugs</a>.
       `,
-      slug: "Maibel AI App",
+      slug: "maibel-ai-app",
       tags: ["mobile", "react-native", "expo"],
       media: ["/images/projects/maibel_app_thumbnail.jpg", "/images/projects/maibel_app_start.jpg"],
       githubRepo: "https://github.com/misterworker/Maibel-AI-App",
@@ -27,7 +27,7 @@ const projects = [
       slug: "ecommerce-site",
       tags: ["Web", "React"],
       media: "/images/ecommerce.jpg",
-      githubRepo: "https://github.com/misterworker/ecommerce-site",
+      githubRepo: "",
     },
   ];
 

@@ -18,7 +18,7 @@ type ProjectCardProps = {
   description: string;
   slug: string;
   tags: string[];
-  media: string | string[]; // media can be a single string or an array of strings
+  media: string | string[];
   githubRepo: string;
   expandedProject: string | null;
   toggleDescription: (slug: string) => void;
@@ -97,18 +97,22 @@ export default function ProjectCard({
         ))}
       </div>
 
-      {/* Description with Toggle */}
-      <div className="mt-4">
-        <button
-          onClick={() => toggleDescription(slug)}
-          className="text-blue-500 hover:text-blue-400 cursor-pointer"
-        >
+      {/* Buttons */}
+      <div className="mt-4 flex gap-4">
+        <button onClick={() => toggleDescription(slug)} className="text-blue-500 hover:text-blue-400 cursor-pointer">
           {expandedProject === slug ? "Hide Description" : "Show Description"}
         </button>
-        {expandedProject === slug && (
-          <p className="mt-2 text-gray-300" dangerouslySetInnerHTML={{ __html: description }} />
-        )}
+
+        {/* "Enter" Button */}
+        <Link href={`/projects/${slug}`} className="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-400 transition">
+          Enter
+        </Link>
       </div>
+
+      {/* Description */}
+      {expandedProject === slug && (
+        <p className="mt-2 text-gray-300" dangerouslySetInnerHTML={{ __html: description }} />
+      )}
     </div>
   );
 }
