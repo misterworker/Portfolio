@@ -56,7 +56,7 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
       {/* Main Content */}
       <div
         className={`flex-1 overflow-y-auto p-6 transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-16" : "ml-64"
+          isSidebarCollapsed ? "ml-14" : "ml-64"
         }`}
       >
         <ProjectDetails project={project} />
@@ -69,7 +69,7 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                 return (
                   <p
                     key={item.id}
-                    className="text-gray-300 mt-2"
+                    className="text-gray-300 mt-2 text"
                     dangerouslySetInnerHTML={{ __html: item.content }}
                   />
                 );
@@ -82,7 +82,7 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                       className="mt-4 w-full h-auto rounded-md max-h-[500px] object-contain"
                     />
                     {item.desc && (
-                      <p className="italic text-gray-400 mt-2 text-center">
+                      <p className="italic text-gray-400 mt-2 text-center text">
                         {item.desc}
                       </p>
                     )}
@@ -99,7 +99,7 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                       Your browser does not support the video tag.
                     </video>
                     {item.desc && (
-                      <p className="italic text-gray-400 mt-2 text-center">
+                      <p className="italic text-gray-400 mt-2 text-center text">
                         {item.desc}
                       </p>
                     )}
@@ -109,11 +109,11 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                 return (
                   <div key={item.id} id={item.id}>
                     {item.desc === "h2" ? (
-                      <h2 className="text-2xl font-bold text-gray-400 mt-4">
+                      <h2 className="text-2xl font-bold text-gray-400 mt-4 text">
                         {item.content}
                       </h2>
                     ) : item.desc === "h3" ? (
-                      <h3 className="text-xl font-bold text-gray-400 mt-4">
+                      <h3 className="text-xl font-bold text-gray-400 mt-4 text">
                         {item.content}
                       </h3>
                     ) : null}
