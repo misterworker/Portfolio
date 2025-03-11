@@ -72,18 +72,17 @@ export default function Header() {
 
       {/* Theme Toggle */}
       <div
-        className="relative w-12 h-6 flex items-center bg-gray-700 rounded-full cursor-pointer"
+        className="relative w-12 h-6 flex items-center justify-between bg-gray-700 rounded-full cursor-pointer px-1"
         onClick={toggleTheme}
       >
+        <BsSun className="text-yellow-400" size={14} />
         <div
-          className={`absolute w-5 h-5 bg-white rounded-full shadow-md transition-transform duration-300 ${
-            theme === "dark" ? "translate-x-0" : "translate-x-6"
-          }`}
+          className={`absolute w-4 h-4 bg-white rounded-full shadow-md transition-all duration-300 
+            ${theme === "dark" ? "left-[5%]" : "left-[60%]"}
+          `}
         />
-        <BsSun className="absolute left-0.5 text-yellow-400" size={14} />
-        <BsMoon className="absolute right-0.5 text-black" size={14} />
+        <BsMoon className="text-black" size={14} />
       </div>
     </header>
-
   );
 }
