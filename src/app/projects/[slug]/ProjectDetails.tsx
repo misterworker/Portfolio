@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 
 import { Pagination, Navigation } from 'swiper/modules';
 
-type ProjectPageClientProps = {
+type ProjectDetailsProps = {
   project: {
     title: string;
     description: string;
@@ -18,7 +18,7 @@ type ProjectPageClientProps = {
   };
 };
 
-export default function ProjectPageClient({ project }: ProjectPageClientProps) {
+export default function ProjectDetails({ project }: ProjectDetailsProps) {
   // Ensure media is always an array
   const mediaArray = Array.isArray(project.media) ? project.media : [project.media];
 

@@ -1,11 +1,15 @@
-import { notFound } from 'next/navigation';
-import Header from '@/components/Header';
-import projects from '../projects';
-import slugProjects from './slugProjects';
-import ProjectPageClient from '@/components/projects/SlugClient';
-import Sidebar from '@/components/projects/SlugSidebar';
+"use client";
+
+import { use, useState } from "react";
+import { notFound } from "next/navigation";
+import Header from "@/components/Header";
+import projects from "../projects";
+import slugProjects from "./slugProjects";
+import ProjectDetails from "./ProjectDetails";
+import Sidebar from "@/components/projects/SlugSidebar";
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
+  
   const project = projects.find((p) => p.slug === params.slug);
 
   if (!project) {
@@ -20,33 +24,52 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   // Extract headers for the sidebar
   const headers = slugProject.media
-    .filter(item => item.type === 'header')
+    .filter((item) => item.type === "header")
     .map((item) => ({
       content: item.content,
       desc: item.desc,
-      id: item.id
+      id: item.id,
     }));
 
+  // Sidebar collapse state
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed);
+  };
+
   return (
-    <div className="flex min-h-screen"> {/* Flexbox layout to place sidebar and content side by side */}
+    <div className="flex min-h-screen">
       <Header />
 
       {/* Sidebar */}
-      <Sidebar headers={headers} />
+      <Sidebar
+        headers={headers}
+        isCollapsed={isSidebarCollapsed}
+        toggleSidebar={toggleSidebar}
+      />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto p-6 ml-64"> {/* Adjust margin to accommodate the sidebar */}
-        <ProjectPageClient project={project} />
+      <div
+        className={`flex-1 overflow-y-auto p-6 transition-all duration-300 ${
+          isSidebarCollapsed ? "ml-16" : "ml-64"
+        }`}
+      >
+        <ProjectDetails project={project} />
 
-        {/* Render media content based on type */}
+        {/* Render media content */}
         <div className="mt-6">
           {slugProject.media.map((item, index) => {
             switch (item.type) {
-              case 'text':
+              case "text":
                 return (
-                  <p key={item.id} className="text-gray-300 mt-2 text" dangerouslySetInnerHTML={{ __html: item.content }} />
+                  <p
+                    key={item.id}
+                    className="text-gray-300 mt-2 text"
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                  />
                 );
-              case 'image':
+              case "image":
                 return (
                   <div key={item.id}>
                     <img
@@ -55,29 +78,40 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                       className="mt-4 w-full h-auto rounded-md max-h-[500px] object-contain"
                     />
                     {item.desc && (
-                      <p className="italic text-gray-400 mt-2 text-center">{item.desc}</p>
+                      <p className="italic text-gray-400 mt-2 text-center">
+                        {item.desc}
+                      </p>
                     )}
                   </div>
                 );
-              case 'video':
+              case "video":
                 return (
                   <div key={item.id}>
-                    <video controls className="mt-4 w-full max-h-[500px] object-contain rounded-md">
+                    <video
+                      controls
+                      className="mt-4 w-full max-h-[500px] object-contain rounded-md"
+                    >
                       <source src={item.content} />
                       Your browser does not support the video tag.
                     </video>
                     {item.desc && (
-                      <p className="italic text-gray-400 mt-2 text-center">{item.desc}</p>
+                      <p className="italic text-gray-400 mt-2 text-center">
+                        {item.desc}
+                      </p>
                     )}
                   </div>
                 );
-              case 'header':
+              case "header":
                 return (
-                  <div key={item.id} id = {item.id}>
-                    {item.desc === 'h2' ? (
-                      <h2 className="text-2xl font-bold text-gray-400 mt-4">{item.content}</h2>
-                    ) : item.desc === 'h3' ? (
-                      <h3 className="text-xl font-bold text-gray-400 mt-4">{item.content}</h3>
+                  <div key={item.id} id={item.id}>
+                    {item.desc === "h2" ? (
+                      <h2 className="text-2xl font-bold text-gray-400 mt-4">
+                        {item.content}
+                      </h2>
+                    ) : item.desc === "h3" ? (
+                      <h3 className="text-xl font-bold text-gray-400 mt-4">
+                        {item.content}
+                      </h3>
                     ) : null}
                   </div>
                 );
