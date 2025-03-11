@@ -4,7 +4,7 @@ import { useState } from "react";
 import ProjectCard from "@/components/projects/ProjectCard";
 import Header from "@/components/Header";
 import TagFilter from "@/components/projects/TagFilter";
-import projects from "./projects"
+import projects from "./projects";
 
 // Extract unique tags from projects
 const allTags = [...new Set(projects.flatMap((project) => project.tags))];
@@ -31,9 +31,9 @@ export default function ProjectsPage() {
   return (
     <>
       <Header />
-      <div className="flex flex-row gap-8 p-6">
-        {/* Left Side: Projects List */}
-        <div className="w-2/3 space-y-6">
+      <div className="flex flex-col md:flex-row gap-8 p-6">
+        {/* Projects List */}
+        <div className="w-full space-y-6">
           <div className="relative w-full max-w-md">
             <input
               type="text"
@@ -42,6 +42,11 @@ export default function ProjectsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 rounded-md searchbar text-white focus:outline-none"
             />
+          </div>
+
+          {/* Tag Filter */}
+          <div className="relative w-full max-w-md">
+            <TagFilter tags={allTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
           </div>
 
           {filteredProjects.map((project) => (
@@ -57,11 +62,6 @@ export default function ProjectsPage() {
               toggleDescription={toggleDescription}
             />
           ))}
-        </div>
-
-        {/* Right Side: Tag Filter */}
-        <div className="w-1/3">
-          <TagFilter tags={allTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
         </div>
       </div>
     </>

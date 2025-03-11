@@ -9,9 +9,10 @@ import "swiper/swiper-bundle.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import "swiper/css/zoom";
 
 // modules
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Zoom } from 'swiper/modules';
 
 type ProjectCardProps = {
   title: string;
@@ -63,15 +64,16 @@ export default function ProjectCard({
             pagination={{ clickable: false }}
             onSwiper={setSwiperRef}
             scrollbar={{ draggable: true }}
+            zoom={true}
             loop={true}
-            modules={[Pagination, Navigation]}
+            modules={[Pagination, Navigation, Zoom]}
           >
             {mediaArray.map((image, index) => (
               <SwiperSlide key={index}>
                 <img
                   src={image}
                   alt={`${title} image ${index + 1}`}
-                  className="w-full h-auto rounded-md max-h-[300px] object-contain"
+                  className="w-full h-auto rounded-md max-h-[50vh] object-contain"
                 />
               </SwiperSlide>
             ))}
@@ -81,7 +83,7 @@ export default function ProjectCard({
         <img
           src={mediaArray[0]}
           alt={title}
-          className="mt-4 w-full h-auto rounded-md max-h-[500px] object-contain"
+          className="mt-4 w-full h-auto rounded-md max-h-[50vh] object-contain"
         />
       )}
 
