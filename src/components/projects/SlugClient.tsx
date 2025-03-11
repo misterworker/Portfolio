@@ -27,11 +27,11 @@ export default function ProjectPageClient({ project }: ProjectPageClientProps) {
 
   return (
     <>
-      <div className="container mx-auto p-6">
+      <div className="container">
         {/* Back to Project link */}
         <a
           href="/projects" // Simple anchor tag to navigate back to the projects page
-          className="text-blue-500 hover:text-blue-400 mt-4 mb-4"
+          className="text-blue-500 hover:text-blue-400 mb-6"
         >
           &larr; Back to Projects
         </a>

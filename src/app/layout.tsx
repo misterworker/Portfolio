@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-20`} // padding to overcome fixed nav bar
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-15`} // padding to overcome fixed nav bar
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>

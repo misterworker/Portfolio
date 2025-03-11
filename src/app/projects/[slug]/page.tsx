@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Header from '@/components/Header';
 import projects from '../projects';
 import slugProjects from './slugProjects';
 import ProjectPageClient from '@/components/projects/SlugClient';
@@ -28,7 +29,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="flex min-h-screen"> {/* Flexbox layout to place sidebar and content side by side */}
-      
+      <Header />
+
       {/* Sidebar */}
       <Sidebar headers={headers} />
 

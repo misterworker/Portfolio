@@ -9,7 +9,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ headers }) => {
   return (
-    <div className="fixed top-0 left-0 w-64 p-4 bg-gray-800 text-white h-full overflow-y-auto">
+    <div className="fixed left-0 w-64 p-4 bg-gray-800 text-white h-full overflow-y-auto">
       <h2 className="text-lg font-bold mb-4">Progress</h2>
       <ul className="space-y-2">
         {headers.map((header) => (
