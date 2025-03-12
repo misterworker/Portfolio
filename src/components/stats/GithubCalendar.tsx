@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 
 type Contribution = {
   date: string;
@@ -18,10 +20,35 @@ const getColor = (count: number) => {
 };
 
 const GithubCalendar: React.FC<GithubCalendarProps> = ({ contributions }) => {
+  const [isClient, setIsClient] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+    setIsCompact(window.innerWidth < 640);
+    
+    const handleResize = () => {
+      setIsCompact(window.innerWidth < 640);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Sort contributions by date
+  const sortedContributions = [...contributions].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
+  // For mobile view, we'll show only the most recent 6 months of data
+  const displayContributions = isClient && isCompact 
+    ? sortedContributions.slice(-6 * 30) // Approximate 6 months
+    : sortedContributions;
+
   // Group data into weeks (GitHub calendar layout)
   const weeks: Contribution[][] = [];
   let week: Contribution[] = [];
-  contributions.forEach((contribution, index) => {
+  displayContributions.forEach((contribution, index) => {
     week.push(contribution);
     if ((index + 1) % 7 === 0) {
       weeks.push(week);
@@ -47,69 +74,95 @@ const GithubCalendar: React.FC<GithubCalendarProps> = ({ contributions }) => {
     }
   });
 
+  // Calculate cell size based on client state (server renders full size)
+  const cellSize = isClient && isCompact ? 8 : 12;
+  const cellGap = 1;
+  const totalWidth = weeks.length * (cellSize + cellGap);
+
   return (
-    <div className="flex flex-col items-center p-[10px] text-[#8b949e]">
-      <h2 className="text-center text-white mb-2">GitHub Contribution Calendar</h2>
+    <div className="flex flex-col items-center p-2 sm:p-[10px] text-[#8b949e] overflow-x-auto w-full">
+      <h2 className="text-center text-white text-sm sm:text-base mb-2">
+        {isClient && isCompact ? "GitHub Activity (Last 6 Months)" : "GitHub Contribution Calendar"}
+      </h2>
 
-      <div className="flex">
-        {/* Weekday Labels */}
-        <div className="grid text-[10px] text-right pr-[5px] mr-[2px]"
-             style={{ gridTemplateRows: "repeat(8, 1fr)", height: "112px" }}>
-          <div className="h-[14px]"></div> {/* Empty cell for month row */}
-          {["", "M", "", "W", "", "F", ""].map((day, index) => (
-            <div key={index} className="h-[14px] flex items-center justify-end">
-              {day}
+      {isClient ? (
+        <div className="flex min-w-full" style={{ minWidth: `${totalWidth + 30}px` }}>
+          {/* Weekday Labels */}
+          <div 
+            className="grid text-[8px] sm:text-[10px] text-right pr-1 sm:pr-[5px] mr-[2px]"
+            style={{ 
+              gridTemplateRows: `repeat(8, ${isCompact ? '10px' : '14px'})`, 
+              height: isCompact ? "80px" : "112px" 
+            }}
+          >
+            <div style={{ height: isCompact ? "10px" : "14px" }}></div> {/* Empty cell for month row */}
+            {["", "M", "", "W", "", "F", ""].map((day, index) => (
+              <div key={index} style={{ height: isCompact ? "10px" : "14px" }} className="flex items-center justify-end">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          {/* Calendar Grid with Month Labels and Contributions */}
+          <div className="flex flex-col">
+            {/* Month Labels Row */}
+            <div className="flex" style={{ height: isCompact ? "10px" : "14px", marginBottom: "1px" }}>
+              {monthLabels.map((month, index) => (
+                <div
+                  key={index}
+                  className="text-[8px] sm:text-[10px] font-medium"
+                  style={{ 
+                    marginLeft: index === 0 ? 0 : `${(month.index - monthLabels[index-1].index - 1) * (cellSize + cellGap)}px`,
+                    width: `${cellSize}px`
+                  }}
+                >
+                  {month.name}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Calendar Grid with Month Labels and Contributions */}
-        <div className="flex flex-col">
-          {/* Month Labels Row */}
-          <div className="flex h-[14px] mb-[1px]">
-            {monthLabels.map((month, index) => (
-              <div
-                key={index}
-                className="text-[10px] font-medium"
-                style={{ 
-                  marginLeft: index === 0 ? 0 : `${(month.index - monthLabels[index-1].index - 1) * 13}px`,
-                  width: '13px'
-                }}
-              >
-                {month.name}
-              </div>
-            ))}
-          </div>
-
-          {/* Contribution Heatmap */}
-          <div className="flex gap-[1px]">
-            {weeks.map((week, weekIndex) => (
-              <div
-                key={weekIndex}
-                className="grid gap-[1px]"
-                style={{ gridTemplateRows: "repeat(7, 1fr)" }}
-              >
-                {week.map((contribution, dayIndex) => (
-                  <div
-                    key={`${weekIndex}-${dayIndex}`}
-                    title={`${contribution.contributions} contributions on ${contribution.date}`}
-                    className="w-[12px] h-[12px] rounded-[2px]"
-                    style={{ backgroundColor: getColor(contribution.contributions) }}
-                  ></div>
-                ))}
-                {/* Fill empty cells if week is not complete */}
-                {Array(7 - week.length).fill(0).map((_, i) => (
-                  <div
-                    key={`empty-${i}`}
-                    className="w-[12px] h-[12px] rounded-[2px]"
-                    style={{ backgroundColor: "#161b22" }}
-                  ></div>
-                ))}
-              </div>
-            ))}
+            {/* Contribution Heatmap */}
+            <div className="flex gap-[1px]">
+              {weeks.map((week, weekIndex) => (
+                <div
+                  key={weekIndex}
+                  className="grid gap-[1px]"
+                  style={{ gridTemplateRows: `repeat(7, ${cellSize}px)` }}
+                >
+                  {week.map((contribution, dayIndex) => (
+                    <div
+                      key={`${weekIndex}-${dayIndex}`}
+                      title={`${contribution.contributions} contributions on ${contribution.date}`}
+                      className="rounded-[2px]"
+                      style={{ 
+                        backgroundColor: getColor(contribution.contributions),
+                        width: `${cellSize}px`,
+                        height: `${cellSize}px`
+                      }}
+                    ></div>
+                  ))}
+                  {/* Fill empty cells if week is not complete */}
+                  {Array(7 - week.length).fill(0).map((_, i) => (
+                    <div
+                      key={`empty-${i}`}
+                      className="rounded-[2px]"
+                      style={{ 
+                        backgroundColor: "#161b22",
+                        width: `${cellSize}px`,
+                        height: `${cellSize}px`
+                      }}
+                    ></div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="animate-pulse flex items-center justify-center h-[200px] w-full bg-gray-800 rounded-lg">
+          <p className="text-gray-400">Loading calendar...</p>
+        </div>
+      )}
     </div>
   );
 };
