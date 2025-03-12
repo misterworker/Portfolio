@@ -22,7 +22,7 @@ else if (env == "production"){
 const fetchContributions = async (): Promise<Contribution[]> => {
   try {
     const res = await fetch(link, {
-      cache: "no-store",
+      next: { revalidate: 600 }, // Cache data for 10 minutes
     });
 
     if (!res.ok) throw new Error("Failed to fetch contributions");
