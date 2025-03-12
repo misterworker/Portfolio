@@ -49,7 +49,7 @@ const GithubCalendar: React.FC<GithubCalendarProps> = ({ contributions }) => {
 
   return (
     <div className="flex flex-col items-center p-[10px] text-[#8b949e]">
-      <h2 className="text-center text mb-2">GitHub Contribution Calendar</h2>
+      <h2 className="text-center text-white mb-2">GitHub Contribution Calendar</h2>
 
       <div className="flex">
         {/* Weekday Labels */}

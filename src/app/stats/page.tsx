@@ -1,4 +1,5 @@
 import GithubCalendar from "@/components/stats/GithubCalendar";
+import GithubStatsCard from "@/components/stats/GithubStats";
 import Header from "@/components/Header";
 
 // Type definition for fetched data
@@ -24,17 +25,24 @@ const fetchContributions = async (): Promise<Contribution[]> => {
   }
 };
 
-// Server Component
 export default async function Page() {
   const contributions = await fetchContributions();
 
   return (
     <>
       <Header/>
-        <div>
-          <h1>GitHub Contributions</h1>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold mb-6 text">GitHub Activity</h1>
+        
+        {/* Stats Card */}
+        <GithubStatsCard contributions={contributions} />
+        
+        {/* Calendar */}
+        <div className="bg-[#0d1117] rounded-lg overflow-hidden">
           <GithubCalendar contributions={contributions} />
         </div>
+      </div>
     </>
   );
 }
+
