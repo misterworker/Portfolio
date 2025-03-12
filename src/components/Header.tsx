@@ -13,7 +13,7 @@ export default function Header() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
-    // { name: "Stats", href: "/stats" },
+    { name: "Stats", href: "/stats" },
     // TODO: disable route temporarily, thinking about what I should even put here
   ];
 
