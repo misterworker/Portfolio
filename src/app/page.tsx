@@ -1,24 +1,42 @@
-"use client"
-
 import Image from 'next/image';
 import Header from '@/components/Header';
-import { BsGithub, BsLinkedin, BsFillPhoneFill, BsFillEnvelopeFill } from 'react-icons/bs';
-import { FaCopy } from "react-icons/fa";
-import { useState } from 'react';
+import SocialLinks from "@/components/SocialLinks";
+import GithubCalendar from "@/components/stats/GithubCalendar";
+import GithubStatsCard from "@/components/stats/GithubStats";
 
-export default function Home() {
-  const [isCopied, setIsCopied] = useState(false);
+// Type definition for fetched data
+type Contribution = {
+  date: string;
+  contributions: number;
+};
 
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText("ethanroo2016@gmail.com");
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000); // Reset the copied state after 2 seconds
-    } catch (err) {
-      console.error("Failed to copy email:", err);
-    }
-  };
+const env = process.env.NODE_ENV
+let link:string
+if(env == "development"){
+  link = "http://127.0.0.1:8000/contributions/misterworker"
+}
+else if (env == "production"){
+  link = process.env.CONTRIBUTIONS_LINK as string
+}
 
+const fetchContributions = async (): Promise<Contribution[]> => {
+  try {
+    const res = await fetch(link, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch contributions");
+
+    const data = await res.json();
+    return data.contributions;
+  } catch (error) {
+    console.error("Error fetching contributions:", error);
+    return [];
+  }
+};
+
+export default async function Home() {
+  const contributions = await fetchContributions();
   return (
     <>
       <Header />
@@ -35,48 +53,7 @@ export default function Home() {
         </div>
 
         {/* Social Links */}
-        <div className="flex flex-wrap justify-center space-x-6 text-lg mb-6 max-w-full w-full">
-          <a
-            href="https://github.com/misterworker"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
-          >
-            <BsGithub size={20} />
-            <span>GitHub</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/ethan-lee-224659251"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
-          >
-            <BsLinkedin size={20} />
-            <span>LinkedIn</span>
-          </a>
-          <a
-            href="tel:+1234567890"
-            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
-          >
-            <BsFillPhoneFill size={20} />
-            <span>Phone</span>
-          </a>
-          <a
-            href="mailto:ethanroo2016@gmail.com"
-            className="flex items-center space-x-2 hover:text-blue-400 mb-3"
-          >
-            <BsFillEnvelopeFill size={20} />
-            <span>Email</span>
-          </a>
-          {/* Copy Email Button */}
-          <button
-            onClick={copyEmail}
-            className="flex items-center space-x-2 hover:text-blue-400 cursor-pointer mb-3"
-          >
-            <FaCopy size={20} />
-            <span>{isCopied ? "Copied!" : "Copy Email"}</span>
-          </button>
-        </div>
+        <SocialLinks />
 
         {/* About Me Section */}
         <section className="max-w-xl text-center mb-10 w-full">
@@ -98,6 +75,29 @@ export default function Home() {
             className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
           >
             View My Projects
+          </a>
+        </section>
+
+        {/* Github Stats */}
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <h1 className="text-2xl font-bold mb-6 text">GitHub Activity</h1>
+          
+          {/* Stats Card */}
+          <GithubStatsCard contributions={contributions} />
+          
+          {/* Calendar */}
+          <div className="bg-[#0d1117] rounded-lg overflow-hidden">
+            <GithubCalendar contributions={contributions} />
+          </div>
+        </div>
+
+        {/* Call to Action - View Projects */}
+        <section className="text-center w-full">
+          <a
+            href="https://github.com/misterworker"
+            className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
+          >
+            View My Github
           </a>
         </section>
       </main>

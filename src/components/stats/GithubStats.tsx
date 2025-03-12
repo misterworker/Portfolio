@@ -92,7 +92,7 @@ const GithubStatsCard: React.FC<GithubStatsCardProps> = ({ contributions }) => {
     <div className="grid grid-cols-3 gap-4 p-4 bg-[#0d1117] text-[#8b949e] rounded-lg mb-4">
       <div className="flex flex-col items-center justify-center p-4 bg-[#161b22] rounded-md">
         <span className="text-2xl font-bold text-white">{totalCommits}</span>
-        <span className="text-sm">Total Contributions</span>
+        <span className="text-sm">Contributions</span>
         <span className="text-xs">(past year)</span>
       </div>
       
