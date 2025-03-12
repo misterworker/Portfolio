@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Header from "@/components/Header";
-import Sidebar from "@/components/projects/SlugSidebar";
-import ProjectDetails from "./projectDetails";
+import Sidebar from "@/components/projects/slug/SlugSidebar";
+import ProjectDetails from "@/components/projects/slug/projectDetails";
 
 interface ProjectProps {
   project: {

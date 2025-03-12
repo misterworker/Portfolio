@@ -1,68 +1,16 @@
-"use client";
-
-import { useState } from "react";
-import ProjectCard from "@/components/projects/ProjectCard";
 import Header from "@/components/Header";
-import TagFilter from "@/components/projects/TagFilter";
-import projects from "./projects";
-
-// Extract unique tags from projects
-const allTags = [...new Set(projects.flatMap((project) => project.tags))];
+import ProjectsList from "@/components/projects/ProjectsList";
+import projects from "../../data/projects";
 
 export default function ProjectsPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTags, setSelectedTags] = useState(allTags);
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
-
-  // Filter projects based on selected tags and search query
-  const filteredProjects = projects.filter((project) => {
-    const matchesTags = selectedTags.length === allTags.length || project.tags.some((tag) => selectedTags.includes(tag));
-    const matchesSearch =
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return matchesTags && matchesSearch;
-  });
-
-  const toggleDescription = (slug: string) => {
-    setExpandedProject(expandedProject === slug ? null : slug);
-  };
+  // Extract unique tags from projects on the server
+  const allTags = [...new Set(projects.flatMap((project) => project.tags))];
 
   return (
     <>
       <Header />
       <div className="flex flex-col md:flex-row gap-8 p-6">
-        {/* Projects List */}
-        <div className="w-full space-y-6">
-          <div className="relative w-full max-w-md">
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-md searchbar text-white focus:outline-none"
-            />
-          </div>
-
-          {/* Tag Filter */}
-          <div className="relative w-full max-w-md">
-            <TagFilter tags={allTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-          </div>
-
-          {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              title={project.title}
-              description={project.description}
-              slug={project.slug}
-              tags={project.tags}
-              media={project.media}
-              githubRepo={project.githubRepo}
-              expandedProject={expandedProject}
-              toggleDescription={toggleDescription}
-            />
-          ))}
-        </div>
+        <ProjectsList projects={projects} allTags={allTags} />
       </div>
     </>
   );

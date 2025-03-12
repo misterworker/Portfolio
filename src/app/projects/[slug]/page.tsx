@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import { use } from "react";
-import projects from "../projects";
-import slugProjects from "./slugProjects";
-import ProjectBlog from "./projectBlog";
+import projects from "@/data/projects";
+import slugProjects from "@/data/slugProjects";
+import ProjectBlog from "@/components/projects/slug/projectBlog";
 
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
