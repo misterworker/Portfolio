@@ -49,10 +49,9 @@ export default async function Home() {
             alt="Profile Picture"
             width={150}
             height={150}
-            twistInterval={4000}
+            twistInterval={3500}
             twistDuration={2500}
             twistDegrees={180}
-            initialTwist={true}
           />
         </div>
 

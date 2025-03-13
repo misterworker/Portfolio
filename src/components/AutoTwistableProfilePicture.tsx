@@ -8,7 +8,6 @@ interface AutoTwistableImageProps extends Omit<ImageProps, 'className'> {
   twistDuration?: number; // Duration of twist animation in ms
   twistDegrees?: number; // Degrees to twist (default 180)
   className?: string; // Allow custom classes
-  initialTwist?: boolean; // Whether to twist on mount
 }
 
 const AutoTwistableImage: React.FC<AutoTwistableImageProps> = ({
@@ -16,10 +15,9 @@ const AutoTwistableImage: React.FC<AutoTwistableImageProps> = ({
   twistDuration = 1500,
   twistDegrees = 180,
   className = '',
-  initialTwist = false,
   ...imageProps
 }) => {
-  const [rotation, setRotation] = useState(initialTwist ? twistDegrees : 0);
+  const [rotation, setRotation] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isAnimatingRef = useRef(false);
 
@@ -40,6 +38,9 @@ const AutoTwistableImage: React.FC<AutoTwistableImageProps> = ({
 
   // Set up twist interval
   useEffect(() => {
+    setTimeout(() => {
+      startTwisting();
+    }, 100);
     // Start the interval for automatic twisting
     timerRef.current = setInterval(() => {
       startTwisting();
