@@ -19,7 +19,6 @@ type ProjectsListProps = {
 export default function ProjectsList({ projects, allTags }: ProjectsListProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState(allTags);
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
 
   const filteredProjects = projects.filter((project) => {
     const matchesTags = selectedTags.length === allTags.length || project.tags.some((tag) => selectedTags.includes(tag));
@@ -29,10 +28,6 @@ export default function ProjectsList({ projects, allTags }: ProjectsListProps) {
 
     return matchesTags && matchesSearch;
   });
-
-  const toggleDescription = (slug: string) => {
-    setExpandedProject(expandedProject === slug ? null : slug);
-  };
 
   return (
     <div className="w-full space-y-6">
@@ -62,8 +57,6 @@ export default function ProjectsList({ projects, allTags }: ProjectsListProps) {
           tags={project.tags}
           media={project.media}
           githubRepo={project.githubRepo}
-          expandedProject={expandedProject}
-          toggleDescription={toggleDescription}
         />
       ))}
     </div>

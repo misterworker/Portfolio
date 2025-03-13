@@ -37,9 +37,17 @@ const slugProjects = [
       { type: 'image', content: '/images/projects/slug/play_store.jpg', desc: "Google Play Store", id: "media-5" },
       { type: 'text', content: `
         As shown above, I've deployed the application for internal testing to a live audience of roughly 15 people in total. These
-        were testers for Maibel's user testing session, and I managed to get the build up in just a week, with no prior experience
+        were testers for Maibel's user testing session, and I managed to get the build up in about a month, with no prior experience
         whatsoever.
       `, desc: "", id: "media-6" },
+      { type: 'header', content: 'Challenges', desc: "h3", id: "header-7" },
+      { type: 'text', content: `
+        It wasn't all sunshine and rainbows, though, as progress halted from a seemingly unbeatable bug. I was following the
+        documentation on expo development build to the letter, but could not seem to start the app on my device. Eventually, I solved it
+        <a href="https://stackoverflow.com/a/79362466/25544913" target="_blank" class="project-link">here</a>, after coming across a random
+        Stack Overflow thread while doing research on similar issues. It took me over a week to overcome this hurdle, but thankfully I did
+        before the user testing session.
+      `, desc: "", id: "media-7" },
     ],
   },
   {

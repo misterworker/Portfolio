@@ -5,8 +5,7 @@ const projects = [
       `
       A mobile application for a startup I co founded: Maibel.ai. I built the app with React Native, allowing for a single
       codebase to build an app that is compatible with both Android and ios. Expo was also utilised for testing and deploying
-      the application on playstore and apple store. I made this early version of the application solo, and stuck to it despite
-      encountering <a href="https://stackoverflow.com/a/79362466/25544913" target="_blank" class="project-link">bugs</a>.
+      the application on playstore and apple store. I made this early version of the application solo.
       `,
       slug: "maibel-ai-app",
       tags: ["mobile", "react-native", "expo"],
