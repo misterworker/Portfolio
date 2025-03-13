@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import SocialLinks from "@/components/SocialLinks";
 import GithubCalendar from "@/components/stats/GithubCalendar";
 import GithubStatsCard from "@/components/stats/GithubStats";
+import AutoTwistableProfilePicture from "@/components/AutoTwistableProfilePicture";
 
 // Type definition for fetched data
 type Contribution = {
@@ -41,14 +42,17 @@ export default async function Home() {
     <>
       <Header />
       <main className="flex flex-col items-center justify-center min-h-screen p-6 text overflow-x-hidden">
-        {/* Profile Picture */}
+        {/* Auto-Twistable Profile Picture */}
         <div className="mb-6">
-          <Image
+          <AutoTwistableProfilePicture
             src="/images/others/goober_pfp.jpg"
             alt="Profile Picture"
             width={150}
             height={150}
-            className="rounded-full border-4 border-gray-500 object-contain"
+            twistInterval={4000}
+            twistDuration={2500}
+            twistDegrees={180}
+            initialTwist={true}
           />
         </div>
 
