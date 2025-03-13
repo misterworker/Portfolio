@@ -24,11 +24,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.style.setProperty("--background", theme === "dark" ? "#0a0a0a" : "#ebeaea");
       document.documentElement.style.setProperty("--foreground", theme === "dark" ? "#ededed" : "#171717");
 
-       // Update card specific colors
-      document.documentElement.style.setProperty("--card-background", theme === "dark" ? "#2a2a2a" : "#f6f4f4");
-      document.documentElement.style.setProperty("--card-text", theme === "dark" ? "#e0e0e0" : "#171717");
+      // Update card specific colors
+      document.documentElement.style.setProperty("--card-background", theme === "dark" ? "#1f2937" : "#e2e8f0");
+      document.documentElement.style.setProperty("--card-desc-text", theme === "dark" ? "#99a1af" : "#1a202c");
+      document.documentElement.style.setProperty("--tag-background", theme === "dark" ? "#2a3545" : "#808894");
 
-      // Persist theme in localStorage
+      // Update searchbar
       document.documentElement.style.setProperty("--searchbar-background", theme === "dark" ? "#1e2939" : "#f6f4f4");
       document.documentElement.style.setProperty("--searchbar-text", theme === "dark" ? "#e0e0e0" : "#171717");
       localStorage.setItem("theme", theme);

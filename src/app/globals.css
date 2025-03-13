@@ -31,13 +31,17 @@ body {
   color: var(--foreground);
 }
 
-.card {
+.card-background{
   background-color: var(--card-background);
-  color: var(--card-text);
 }
 
-.card h2, .card p {
-  color: var(--card-text);
+.card-desc-text{
+  color: var(--card-desc-text);
+  font-size: 14px;
+}
+
+.card-tag{
+  background-color: var(--tag-background);
 }
 
 .searchbar {
