@@ -45,7 +45,7 @@ export default async function Home() {
         {/* Auto-Twistable Profile Picture */}
         <div className="mb-6">
           <AutoTwistableProfilePicture
-            src="/images/others/goober_pfp.jpg"
+            src="/others/goober_pfp.jpg"
             alt="Profile Picture"
             width={150}
             height={150}

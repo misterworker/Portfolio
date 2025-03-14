@@ -3,13 +3,14 @@ const projects = [
       title: "Maibel AI App",
       description: 
       `
-      A mobile application for a startup I co founded: Maibel.ai. I built the app with React Native, allowing for a single
-      codebase to build an app that is compatible with both Android and ios. Expo was also utilised for testing and deploying
-      the application on playstore and apple store. I made this early version of the application solo.
+      A mobile application for a startup I co founded: Maibel.ai. This app is aims to be the first app made for women that combines 
+      storytelling and personalised AI coaching. I built the app with React Native, allowing for a single codebase to build an app 
+      that is compatible with both Android and ios. Expo was also utilised for testing and deploying the application on playstore 
+      and apple store. I made this early version of the application solo.
       `,
       slug: "maibel-ai-app",
       tags: ["mobile", "react-native", "expo"],
-      media: ["/images/projects/maibel_app_start.jpg", "/images/projects/maibel_app_story.jpg", "/images/projects/maibel_app_chat.jpg"],
+      media: ["/projects/maibel_app_start.jpg", "/projects/maibel_app_story.jpg", "/projects/maibel_app_chat.jpg"],
       githubRepo: "https://github.com/misterworker/Maibel-AI-App",
     },
     {

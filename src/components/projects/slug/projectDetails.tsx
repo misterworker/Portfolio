@@ -28,7 +28,6 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
   return (
     <>
       <div className="container">
-        {/* Back to Project link */}
         <h1 className="text-3xl font-bold text-blue-400">{project.title}</h1>
         <p className="text-gray-300 mt-2 text" dangerouslySetInnerHTML={{ __html: project.description }} />
 
