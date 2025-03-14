@@ -29,12 +29,6 @@ export default function ProjectDetails({ project }: ProjectDetailsProps) {
     <>
       <div className="container">
         {/* Back to Project link */}
-        <a
-          href="/projects" // Simple anchor tag to navigate back to the projects page
-          className="text-blue-500 hover:text-blue-400 mb-6"
-        >
-          &larr; Back to Projects
-        </a>
         <h1 className="text-3xl font-bold text-blue-400">{project.title}</h1>
         <p className="text-gray-300 mt-2 text" dangerouslySetInnerHTML={{ __html: project.description }} />
 
