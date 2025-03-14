@@ -88,23 +88,31 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                     )}
                   </div>
                 );
-              case "video":
-                return (
-                  <div key={item.id}>
-                    <video
-                      controls
-                      className="mt-4 w-full max-h-[500px] object-contain rounded-md"
-                    >
-                      <source src={item.content} />
-                      Your browser does not support the video tag.
-                    </video>
-                    {item.desc && (
-                      <p className="italic text-gray-400 mt-2 text-center text">
-                        {item.desc}
-                      </p>
-                    )}
-                  </div>
-                );
+                case "video":
+                  const isYouTubeLink = item.content.includes("youtube.com") || item.content.includes("youtu.be");
+                
+                  return (
+                    <div key={item.id} className="mt-4">
+                      {isYouTubeLink ? (
+                        <iframe
+                          className="w-full max-h-[500px] rounded-md"
+                          src={item.content}
+                          title="YouTube video"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : (
+                        // Fallback for non-YouTube videos (standard <video> tag)
+                        <video controls className="w-full max-h-[500px] object-contain rounded-md">
+                          <source src={item.content} />
+                          Your browser does not support the video tag.
+                        </video>
+                      )}
+                      {item.desc && (
+                        <p className="italic text-gray-400 mt-2 text-center">{item.desc}</p>
+                      )}
+                    </div>
+                  );                
               case "header":
                 return (
                   <div key={item.id} id={item.id}>
