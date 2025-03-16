@@ -37,7 +37,8 @@ const slugProjects = [
         2. User data (questions & responses from Day 1 onward)<br />
         <br />
         GPT-4o mini then determines:<br />
-        - <b>Recommendation (Integer)</b> → Adjusts challenge based on user behavior (e.g., if a user drinks only 500ml of water daily, the bot suggests increasing intake to 1L)<br />
+        - <b>Recommendation (Integer)</b> → Adjusts challenge based on user behavior (e.g., if a user drinks only 500ml of water daily, 
+        the bot suggests increasing intake to 1L)<br />
         - <b>Unit (String)</b> → Readable format (e.g., "L" or "Liters")<br />
         <br />
         The final challenge string is generated client-side.
@@ -48,7 +49,8 @@ const slugProjects = [
         - <b>Progress Amount (Float)</b> → % progress towards goal<br />
         - <b>isProgChallenge (Boolean)</b> → Whether the user is actively working on the challenge<br />
         <br />
-        If <code>isProgChallenge = true</code>, progress updates are handled accordingly. Otherwise, the <b>Conversational Bot</b> takes over.<br /><br />
+        If <code>isProgChallenge = true</code>, progress updates are handled accordingly. Otherwise, the <b>Conversational Bot</b> takes 
+        over.<br /><br />
 
         Challenge Bot handles <b>real-time challenge progression tracking</b> based on user input. The bot processes:<br />
         - User's voluntary deductions<br />
@@ -99,25 +101,44 @@ const slugProjects = [
   {
     slug: "workAdvisor",
     media: [
-      { type: 'header', content: 'Feature Demonstration', desc: "h2", id: "header-0" },
-      { type: "video", content: '/videos/projects/slug/maibel_demo.mp4', desc: "Demo Video", id: "media-1" },
-      { type: 'image', content: '/projects/workAdvisor/plan.jpg', desc: "Plan Overview", id: "media-2" },
+      { type: 'header', content: 'Plan Overview', desc: "h2", id: "header-0" },
+      { type: 'image', content: '/projects/workAdvisor/plan.jpg', desc: "Plan Overview", id: "media-0" },
       { type: "text", content: `
         As you can see, the application features Siew Wei Heng, Lee Yan Da Ethan and Gavin Lim.
+      `, desc: "", id: "media-1" },
+      { 
+        "type": "header", 
+        "content": "Problem", 
+        "desc": "h2", 
+        "id": "header-1" 
+      },
+      { type: "text", content: `
+        Many working professionals and students face unequal opportunities in their educational and professional 
+        journeys due to factors beyond their control, hindering their ability to thrive and achieve their full potential.
+      `, desc: "", id: "media-2" },
+      { 
+        "type": "header", 
+        "content": "Solution", 
+        "desc": "h2", 
+        "id": "header-2" 
+      },
+      { type: "text", content: `
+        The post predictor provides personalised guidance by predicting the popularity of forum posts using a Neural Network 
+        model deployed with FastAPI on Google Cloud Run. It also includes Generative AI to prevent invalid posts and offer 
+        improvement suggestions, ultimately promoting equal access to relevant insights for better educational and career opportunities.
       `, desc: "", id: "media-3" },
       { 
         "type": "header", 
         "content": "Scraping", 
         "desc": "h2", 
-        "id": "header-1" 
+        "id": "header-3" 
       },
       { 
         "type": "text", 
         "content": `
-          For the project, I scraped data from <a href="https://www.thestudentroom.co.uk/" target="_blank" class="project-link">The Student Room</a> 
-          using <b>BeautifulSoup</b> and asynchronous requests. Initially, my requests were blocked due to a 
-          <b>403 Forbidden</b> error. To bypass this, I modified the request headers to include a 
-          custom <code>"User-Agent"</code>:<br /><br />
+          For the project, I scraped data from <a href="https://www.thestudentroom.co.uk/" target="_blank" class="project-link">The 
+          Student Room</a> using <b>BeautifulSoup</b> and asynchronous requests. Initially, my requests were blocked due to a 
+          <b>403 Forbidden</b> error. To bypass this, I modified the request headers to include a custom <code>"User-Agent"</code>:<br /><br />
           
           <code>"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"</code><br /><br />
       
@@ -134,41 +155,45 @@ const slugProjects = [
           This approach allowed me to scrape the necessary data <b>efficiently and at scale</b> without needing to render JavaScript.
         `, 
         "desc": "", 
-        "id": "media-12" 
+        "id": "media-4" 
       },
       { 
         "type": "header", 
         "content": "Deep Learning Model", 
         "desc": "h2", 
-        "id": "header-2" 
+        "id": "header-4" 
       },
       { 
         "type": "text", 
         "content": `
-          I designed and trained a <b>deep learning model</b> to classify posts using multiple input features, including <b>text, title, numerical data, and categorical data</b>. The architecture consists of:<br /><br />
+          I designed and trained a <b>deep learning model</b> to classify posts using multiple input features, including <b>text, title, 
+          numerical data, and categorical data</b>. The architecture consists of:<br /><br />
       
           - <b>Text Input</b>: A <code>Bidirectional LSTM</code> processes the main post content.<br />
           - <b>Title Input</b>: Another <code>Bidirectional LSTM</code> processes the post title separately.<br />
           - <b>Numerical Input</b>: A single numerical feature (<code>days since post</code>) is included.<br />
           - <b>Categorical Input</b>: A <code>one-hot encoded</code> category input with 4 features.<br /><br />
       
-          These inputs are <b>concatenated</b> and passed through dense layers with <b>L2 regularization</b> and <b>dropout</b> to prevent overfitting. The final output layer uses a <b>softmax activation</b> to classify posts into predefined categories.<br /><br />
+          These inputs are <b>concatenated</b> and passed through dense layers with <b>L2 regularization</b> and <b>dropout</b> to prevent 
+          overfitting. The final output layer uses a <b>softmax activation</b> to classify posts into predefined categories.<br /><br />
       
-          The model is compiled with <b>Adam optimizer</b> and <code>sparse_categorical_crossentropy</code> loss, making it well-suited for multi-class classification.
+          The model is compiled with <b>Adam optimizer</b> and <code>sparse_categorical_crossentropy</code> loss, making it well-suited for 
+          multi-class classification.
         `, 
         "desc": "", 
-        "id": "media-13" 
+        "id": "media-5" 
       },
       { 
         "type": "header", 
         "content": "Model Deployment & API", 
         "desc": "h3", 
-        "id": "header-11" 
+        "id": "header-5" 
       },
       { 
         "type": "text", 
         "content": `
-          To deploy the deep learning model and make it accessible via API, I used <b>Google Cloud Run</b> with a <b>Dockerized FastAPI application</b>. This setup allows for seamless integration between the model and external services.<br /><br />
+          To deploy the deep learning model and make it accessible via API, I used <b>Google Cloud Run</b> with a <b>Dockerized FastAPI 
+          application</b>. This setup allows for seamless integration between the model and external services.<br /><br />
       
           The API handles:<br />
           - <b>Post Validation</b>: Ensures content is suitable for public posting.<br />
@@ -178,8 +203,91 @@ const slugProjects = [
           The service supports CORS for frontend interaction and uses structured output functions to return validated post suggestions and analysis.
         `, 
         "desc": "", 
+        "id": "media-6" 
+      },
+      { 
+        "type": "header", 
+        "content": "Model Evaluation", 
+        "desc": "h3", 
+        "id": "header-6" 
+      },
+      { type: 'image', content: '/projects/workAdvisor/original_model.jpg', desc: "Original Model", id: "media-8" },
+      { type: 'image', content: '/projects/workAdvisor/optimised_model.jpg', desc: "Optimised Model", id: "media-9" },
+      { 
+        "type": "text", 
+        "content": `
+          Above are the classification reports for both my neural network models.
+          All around, our priority is to increase the F1-score to balance identifying engaging posts while avoiding promoting low-quality 
+          ones. From the metrics, we can see that the new model maintains a recall above 0.33 for both Decent and Popular posts, ensuring 
+          that we continue surfacing engaging content.
+          Additionally, the F1-score for Popular posts improved from 0.15 to 0.18, and overall accuracy increased from 0.54 to 0.59, demonstrating 
+          a more balanced performance.
+          The only issue is that precision for decent posts have decreased by .03, but the trade-off results in better recall for engaging posts, 
+          and an overall increase in accuracy. Ultimately, this model is stable, but its predictive capabilities for popular and decent posts seem 
+          to be limited. This could be improved with more data and optimising NN layers further.
+        `, 
+        "desc": "", 
+        "id": "media-10" 
+      },
+      { 
+        "type": "header", 
+        "content": "Features/UX", 
+        "desc": "h2", 
+        "id": "header-7" 
+      },
+      { type: 'image', content: '/projects/workAdvisor/pageTour.jpg', desc: "Initial Page Tour", id: "media-11" },
+      { 
+        "type": "text", 
+        "content": `
+          The user experience is intuitive, featuring a guidance tour right off the get go. The tour highlights the relevant 
+          parts of the page and explains to the user what each part does. This occurs for post crafting, AI Generated Feedback, 
+          Suggestion Implementation, Analysis results, and Analysis History. <br />
+          Additionally, the user can click on the question mark highlighted in red to access the tour again.
+        `, 
+        "desc": "", 
+        "id": "media-12" 
+      },
+      { type: 'image', content: '/projects/workAdvisor/gen_ai.jpg', desc: "Generative AI", id: "media-13" },
+      { 
+        "type": "text", 
+        "content": `
+          The Generative AI component has the ability to filter information and determine if the post is not suitable for posting 
+          on the internet. It checks for personally identifiable information, nonsensical posts and posts that do not align with 
+          the category of the post. If any of these filters are detected, it mentions the issue above. Moreover, if these checks 
+          are flagged, the predictive model will not be called to save resources. <br />
+          Additionally, the AI has the capability to generate recommendations on how to improve the post, as well as always provide 
+          the link to a page with posts of the similar category based on the current selected category. It also always provides 
+          outputs in point form (unless manipulated to do otherwise)
+        `, 
+        "desc": "", 
         "id": "media-14" 
-      }      
+      },
+      { type: 'image', content: '/projects/workAdvisor/suggestion.jpg', desc: "Suggestion", id: "media-15" },
+      { 
+        "type": "text", 
+        "content": `
+          This feature allows the user to implement suggested changes from the AI immediately. After clicking on the 
+          'edit' icon, the changes are placed into the post title and content. Moreover, the option to validate posts 
+          is temporarily disabled to prevent unnecessary calls to the model, since the changes are in an intermediary 
+          stage. If the user clicks on the tick icon, the changes are made. If the user clicks on the cross, the changes 
+          are reverted and the original post title and content are restored. <br />
+
+          This feature removes the redundant manual and laborious task of having to incorporate each suggestion from the 
+          AI on your own, saving time.
+        `, 
+        "desc": "", 
+        "id": "media-16" 
+      },
+      { type: 'image', content: '/projects/workAdvisor/analysis_history.jpg', desc: "Analysis History", id: "media-17" },
+      { 
+        "type": "text", 
+        "content": `
+          This feature allows the user to load the posts they've predicted before. The history is stored in localstorage, 
+          and clearing history clears the history within localstorage (This is immediately reflected on the UI)
+        `, 
+        "desc": "", 
+        "id": "media-18" 
+      },
     ],
   },
   {
