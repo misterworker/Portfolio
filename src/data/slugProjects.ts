@@ -81,8 +81,8 @@ const slugProjects = [
         School Dropout" would still work.
       `, desc: "", id: "media-7" },
       { type: 'header', content: 'Deployment', desc: "h2", id: "header-7" },
-      { type: 'image', content: '/projects/slug/apple_developer_store.jpg', desc: "Apple Developer Store", id: "media-8" },
-      { type: 'image', content: '/projects/slug/play_store.jpg', desc: "Google Play Store", id: "media-9" },
+      { type: 'image', content: '/projects/Maibel App/apple_developer_store.jpg', desc: "Apple Developer Store", id: "media-8" },
+      { type: 'image', content: '/projects/Maibel App/play_store.jpg', desc: "Google Play Store", id: "media-9" },
       { type: 'text', content: `
         As shown above, I've deployed the application for internal testing to a live audience of roughly 15 people in total. These
         were testers for Maibel's user testing session, and I managed to get the build up in about a month, with no prior experience

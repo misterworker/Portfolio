@@ -12,8 +12,8 @@ const projects = [
 
       `,
       slug: "maibel-ai-app",
-      tags: ["mobile", "react-native", "expo"],
-      media: ["/projects/maibel_app_start.jpg", "/projects/maibel_app_story.jpg", "/projects/maibel_app_chat.jpg"],
+      tags: ["mobile", "AI"],
+      media: ["/projects/Maibel App/maibel_app_start.jpg", "/projects/Maibel App/maibel_app_story.jpg", "/projects/Maibel App/maibel_app_chat.jpg"],
       githubRepo: "https://github.com/misterworker/Maibel-AI-App",
     },
     {
@@ -29,7 +29,7 @@ const projects = [
 
       `,
       slug: "workAdvisor",
-      tags: ["Web", "NextJS", "Deep Learning"],
+      tags: ["Web", "Deep Learning"],
       media: ["/projects/workAdvisor/mainPage.jpg", "/projects/workAdvisor/pageTour.jpg", "/projects/workAdvisor/finalPage.jpg"],
       githubRepo: "https://github.com/misterworker/workAdvisor",
       website: "https://work-advisor-seven.vercel.app/post-prediction"
@@ -45,8 +45,9 @@ const projects = [
 
       `,
       slug: "workout-tracker-app",
-      tags: ["mobile", "android", "kotlin"],
-      media: ["/projects/workout_tracker_main.jpg", "/projects/workout_tracker_workouts.jpg", "/projects/workout_tracker_premium.jpg"],
+      tags: ["mobile"],
+      media: ["/projects/Workout Tracker/workout_tracker_main.jpg", "/projects/Workout Tracker/workout_tracker_workouts.jpg", 
+        "/projects/Workout Tracker/workout_tracker_premium.jpg"],
       githubRepo: "https://github.com/misterworker/WorkoutTracker",
     },
   ];
