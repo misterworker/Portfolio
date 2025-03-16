@@ -29,10 +29,27 @@ const projects = [
 
       `,
       slug: "workAdvisor",
-      tags: ["Web", "Deep Learning"],
+      tags: ["Web", "Deep Learning", "Scraping"],
       media: ["/projects/workAdvisor/mainPage.jpg", "/projects/workAdvisor/pageTour.jpg", "/projects/workAdvisor/finalPage.jpg"],
-      githubRepo: "https://github.com/misterworker/workAdvisor",
+      githubRepo: "https:d//github.com/misterworker/workAdvisor",
       website: "https://work-advisor-seven.vercel.app/post-prediction"
+    },
+    {
+      title: "MLOps",
+      description: `
+      A web application that features common MLOps practices as well as a machine learning pipeline. I personally worked on the 
+      Used Car Price Predictor.
+      (BentoML replaced with Cloud Run because it's cheaper). <br />
+      <b>Features</b>: Dependency and Configuration management, speedy machine learning pipeline endpoint deployment, efficient dataset
+      versioning and retrieval, interfacing on web application with batch processing & an exploratory data analysis (EDA) notebook<br />
+      <b>Technologies used</b>: DVC, Hydra, BentoML, Poetry, MLFlow, PyCaret
+
+      `,
+      slug: "mlops",
+      tags: ["mlops"],
+      media: ["/projects/MLOps/mlops_result.jpg",],
+      githubRepo: "https://github.com/misterworker/MLOps",
+      website: "https://ml-ops-five.vercel.app/"
     },
     {
       title: "Workout Tracker App",
