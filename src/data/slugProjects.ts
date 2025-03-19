@@ -318,66 +318,110 @@ const slugProjects = [
     "media": [
       { "type": "header", "content": "Feature Demonstration", "desc": "h2", "id": "header-0" },
       { "type": "video", "content": "https://www.youtube.com/embed/xZ6jbb7oEqg?si=vcCgfkG_k_PD5Pg9", "desc": "Demo Video", "id": "media-1" },
-      { "type": "text", "content": `
-        The Used Car Price Predictor is part of an <b>MLOps pipeline</b> that integrates <b>DVC for dataset versioning, Poetry for dependency management, Hydra for configuration handling, and MLflow for experiment tracking.</b> This section walks through the dataset, model training, deployment, and web application for real-time predictions.
-      `, "desc": "", "id": "media-2" },
+      { 
+        "type": "text", 
+        "content": `
+          The Used Car Price Predictor is part of an MLOps pipeline that integrates DVC for dataset versioning, Poetry for dependency 
+          management, Hydra for configuration handling, and MLflow for experiment tracking.<br /><br />
+  
+          This section walks through the dataset, model training, deployment, and web application for real-time predictions.
+        `, 
+        "desc": "", 
+        "id": "media-2" 
+      },
   
       { "type": "header", "content": "Project Structure", "desc": "h3", "id": "header-3" },
-      { "type": "text", "content": `
-        The project is structured as follows:
-        - <b>\`used-car-predictor/\`</b> - Main directory for the predictor.
-        - <b>\`.dvc/\`</b> - Tracks dataset versions efficiently.
-        - <b>\`bentoml/\`</b> - Contains the BentoML service for model deployment.
-        - <b>\`configs/\`</b> - Stores Hydra configuration for ML experiments.
-        - <b>\`datasets/\`</b> - Holds raw and preprocessed datasets.
-        - <b>\`experiments/\`</b> - Stores the trained ML pipeline as a pickle file.
-        - <b>\`notebooks/\`</b> - Contains EDA and model training notebooks.
-        - <b>\`pyproject.toml\`</b> - Poetry dependency management file.
-      `, "desc": "", "id": "media-4" },
+      { 
+        "type": "text", 
+        "content": `
+          The project is structured as follows:<br /><br />
+  
+          - <b>used-car-predictor/</b> - Main directory for the predictor.<br />
+          - <b>.dvc/</b> - Tracks dataset versions efficiently.<br />
+          - <b>bentoml/</b> - Contains the BentoML service for model deployment.<br />
+          - <b>configs/</b> - Stores Hydra configuration for ML experiments.<br />
+          - <b>datasets/</b> - Holds raw and preprocessed datasets.<br />
+          - <b>experiments/</b> - Stores the trained ML pipeline as a pickle file.<br />
+          - <b>notebooks/</b> - Contains EDA and model training notebooks.<br />
+          - <b>pyproject.toml</b> - Poetry dependency management file.
+        `, 
+        "desc": "", 
+        "id": "media-4" 
+      },
   
       { "type": "header", "content": "Pipeline & Training", "desc": "h3", "id": "header-5" },
-      { "type": "text", "content": `
-        The <b>machine learning pipeline</b> is built using <b>PyCaret</b> with <b>Hydra-based configuration</b> to dynamically adjust hyperparameters. The training steps include:
-        - <b>Exploratory Data Analysis (EDA)</b> to understand dataset trends.
-        - <b>Model selection using \`compare_models()\`</b>, followed by tuning.
-        - <b>Logging experiments with MLflow</b> for tracking performance.
-        - <b>Dataset versioning with DVC</b>, backed by Google Cloud Storage.
-        
-        All configurations for the pipeline, including imputation strategies and feature selection, are stored in \`configs/config.yaml\`.
-      `, "desc": "", "id": "media-6" },
-      
+      { 
+        "type": "text", 
+        "content": `
+          The machine learning pipeline is built using PyCaret with Hydra-based configuration to dynamically adjust hyperparameters.<br /><br />
+  
+          The training steps include:<br /><br />
+  
+          - <b>Exploratory Data Analysis (EDA)</b> to understand dataset trends.<br />
+          - <b>Model selection using compare_models()</b>, followed by tuning.<br />
+          - <b>Logging experiments with MLflow</b> for tracking performance.<br />
+          - <b>Dataset versioning with DVC</b>, backed by Google Cloud Storage.<br /><br />
+  
+          All configurations for the pipeline, including imputation strategies and feature selection, are stored in <b>configs/config.yaml</b>.
+        `, 
+        "desc": "", 
+        "id": "media-6" 
+      },
+  
       { "type": "image", "content": "/projects/MLOps/mlflow.jpg", "desc": "MLflow Experiment Tracking", "id": "media-7" },
   
       { "type": "header", "content": "Dataset Management with DVC", "desc": "h3", "id": "header-8" },
-      { "type": "text", "content": `
-        <b>DVC (Data Version Control)</b> is used alongside <b>Google Cloud Storage (GCS)</b> to manage dataset versions. The dataset is stored in a remote bucket, and the latest version can be pulled using:
-        
-        \`\`\`bash
-        poetry run dvc pull
-        \`\`\`
+      { 
+        "type": "text", 
+        "content": `
+          DVC (Data Version Control) is used alongside Google Cloud Storage (GCS) to manage dataset versions.<br /><br />
   
-        This ensures that every team member has access to the most recent dataset while maintaining reproducibility.
-      `, "desc": "", "id": "media-9" },
+          The dataset is stored in a remote bucket, and the latest version can be pulled using:<br /><br />
+  
+          <code>poetry run dvc pull</code><br /><br />
+  
+          This ensures that every team member has access to the most recent dataset while maintaining reproducibility.
+        `, 
+        "desc": "", 
+        "id": "media-9" 
+      },
   
       { "type": "header", "content": "Model Deployment with BentoML", "desc": "h3", "id": "header-10" },
-      { "type": "text", "content": `
-        Instead of manually setting up a FastAPI server and Dockerizing it, <b>BentoML</b> was used for efficient model deployment. BentoML provides:
-        - <b>Built-in model serving</b> with automatic endpoint creation.
-        - <b>Optimized inference</b> with batching and scaling capabilities.
-        - <b>Faster deployment</b> compared to setting up Google Cloud Run manually.
-        
-        The model service is defined in <b>\`bentoml/service.py\`</b>, where preprocessing steps and inference logic are implemented.
-      `, "desc": "", "id": "media-11" },
+      { 
+        "type": "text", 
+        "content": `
+          Instead of manually setting up a FastAPI server and Dockerizing it, BentoML was used for efficient model deployment.<br /><br />
+  
+          BentoML provides:<br /><br />
+  
+          - <b>Built-in model serving</b> with automatic endpoint creation.<br />
+          - <b>Optimized inference</b> with batching and scaling capabilities.<br />
+          - <b>Faster deployment</b> compared to setting up Google Cloud Run manually.<br /><br />
+  
+          The model service is defined in <b>bentoml/service.py</b>, where preprocessing steps and inference logic are implemented.
+        `, 
+        "desc": "", 
+        "id": "media-11" 
+      },
   
       { "type": "header", "content": "Web App Integration", "desc": "h3", "id": "header-12" },
-      { "type": "text", "content": `
-        The <b>Next.js-based web application</b> provides a frontend for users to input car details and predict their prices using the BentoML API. Features include:
-        - <b>Multiple car inputs</b> for batch predictions.
-        - <b>Random auto-fill</b> for easy testing.
-        - <b>Real-time results</b> fetched from the deployed model.
-        
-        The API response includes predicted car prices based on the trained model, ensuring an interactive user experience.
-      `, "desc": "", "id": "media-13" }
+      { 
+        "type": "text", 
+        "content": `
+          The Next.js-based web application provides a frontend for users to input car details and predict their prices using the 
+          BentoML API.<br /><br />
+  
+          Features include:<br /><br />
+  
+          - <b>Multiple car inputs</b> for batch predictions.<br />
+          - <b>Random auto-fill</b> for easy testing.<br />
+          - <b>Real-time results</b> fetched from the deployed model.<br /><br />
+  
+          The API response includes predicted car prices based on the trained model, ensuring an interactive user experience.
+        `, 
+        "desc": "", 
+        "id": "media-13" 
+      }
     ]
   }, 
   {

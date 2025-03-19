@@ -49,7 +49,8 @@ export default function ProjectCard({
       <div
         className="w-full h-48 sm:h-56 md:h-64 overflow-hidden relative"
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.stopPropagation();
+          router.push(`/projects/${slug}`);
         }}
       >
         {mediaArray.length > 1 ? (
@@ -62,9 +63,6 @@ export default function ProjectCard({
             loop={true}
             modules={[Pagination, Navigation, Zoom]}
             className="h-full w-full"
-            onClick={(e) => {
-              router.push(`/projects/${slug}`);
-            }}
           >
             {mediaArray.map((image, index) => (
               <SwiperSlide key={index} className="h-full">
@@ -82,7 +80,7 @@ export default function ProjectCard({
           <img
             src={mediaArray[0]}
             alt={title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         )}
 

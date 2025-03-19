@@ -4,6 +4,8 @@ import SocialLinks from "@/components/SocialLinks";
 import GithubCalendar from "@/components/stats/GithubCalendar";
 import GithubStatsCard from "@/components/stats/GithubStats";
 import AutoTwistableProfilePicture from "@/components/AutoTwistableProfilePicture";
+import Certificates from "@/components/Certificates";
+import Technologies from "@/components/Technologies";
 
 // Type definition for fetched data
 type Contribution = {
@@ -80,6 +82,9 @@ export default async function Home() {
             View My Projects
           </a>
         </section>
+
+        {/* Certificates Section */}
+        <Certificates />
 
         {/* Github Stats */}
         <div className="max-w-4xl mx-auto px-4 py-8">
