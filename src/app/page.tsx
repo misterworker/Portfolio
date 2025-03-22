@@ -83,6 +83,9 @@ export default async function Home() {
           </a>
         </section>
 
+        {/* Technologies Used */}
+        <Technologies />
+
         {/* Certificates Section */}
         <Certificates />
 
