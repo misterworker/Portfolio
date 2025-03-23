@@ -46,13 +46,7 @@ export default function ProjectCard({
     hover:shadow-lg hover:shadow-blue-500/20 hover:translate-y-[-4px] cursor-pointer
     ">
       {/* Project Media - Swiper Carousel */}
-      <div
-        className="w-full h-48 sm:h-56 md:h-64 overflow-hidden relative"
-        onClick={(e) => {
-          e.stopPropagation();
-          router.push(`/projects/${slug}`);
-        }}
-      >
+      <div className="w-full h-48 sm:h-56 md:h-64 overflow-hidden relative">
         {mediaArray.length > 1 ? (
           <Swiper
             spaceBetween={0}
@@ -69,6 +63,10 @@ export default function ProjectCard({
                 <div className="h-full w-full flex items-center justify-center">
                   <img
                     src={image}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/projects/${slug}`);
+                    }}
                     alt={`${title} image ${index + 1}`}
                     className="w-full h-full object-contain"
                   />
@@ -79,6 +77,10 @@ export default function ProjectCard({
         ) : (
           <img
             src={mediaArray[0]}
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/projects/${slug}`);
+            }}
             alt={title}
             className="w-full h-full object-contain"
           />
