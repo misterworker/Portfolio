@@ -1,6 +1,6 @@
 "use client";
 
-import { BsGithub, BsLinkedin, BsFillPhoneFill, BsFillEnvelopeFill } from "react-icons/bs";
+import { BsGithub, BsLinkedin, BsTelegram, BsFillEnvelopeFill } from "react-icons/bs";
 import { FaCopy } from "react-icons/fa";
 import { useState } from "react";
 
@@ -16,9 +16,9 @@ const SOCIAL_LINKS = [
     icon: <BsLinkedin size={20} />,
   },
   {
-    href: "tel:+1234567890",
-    label: "Phone",
-    icon: <BsFillPhoneFill size={20} />,
+    href: "https://t.me/eltnx",
+    label: "Telegram",
+    icon: <BsTelegram  size={20} />,
   },
   {
     href: "mailto:ethanroo2016@gmail.com",

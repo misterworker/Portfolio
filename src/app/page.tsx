@@ -69,7 +69,9 @@ export default async function Home() {
             Application Developer, Data Analyst, Casual Armwrestler.
           </p>
           <p className="text mb-4">
-            I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at <b>Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects (Including this!).
+            I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at
+            <b> Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects.
+            I am well versed in areas like Machine Learning, Deep Learning, Data Analysis, as well as creating Generative AI applications.
           </p>
           <p className="text mb-6">
             I also take an interest in fitness, casually trying out powerlifting, bodybuilding, and most recently <b>armwrestling</b>.
