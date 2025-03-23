@@ -12,7 +12,8 @@ export default function Header() {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Projects", href: "/projects" },
+    { name: "Projects", href: "#projects" },
+    { name: "Certificates", href: "#certificates" },
   ];
 
   // State to manage header visibility

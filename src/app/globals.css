@@ -17,6 +17,10 @@ body {
   color: var(--foreground);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .project-link { /* Meant for text with links in project card desc */
   color: #3b82f6;
   text-decoration: underline;

@@ -6,6 +6,8 @@ import GithubStatsCard from "@/components/stats/GithubStats";
 import AutoTwistableProfilePicture from "@/components/AutoTwistableProfilePicture";
 import Certificates from "@/components/Certificates";
 import Technologies from "@/components/Technologies";
+import ProjectsList from '@/components/projects/ProjectsList';
+import projects from "@/data/projects";
 
 // Type definition for fetched data
 type Contribution = {
@@ -40,6 +42,7 @@ const fetchContributions = async (): Promise<Contribution[]> => {
 
 export default async function Home() {
   const contributions = await fetchContributions();
+  const allTags = [...new Set(projects.flatMap((project) => project.tags))];
   return (
     <>
       <Header />
@@ -86,9 +89,6 @@ export default async function Home() {
         {/* Technologies Used */}
         <Technologies />
 
-        {/* Certificates Section */}
-        <Certificates />
-
         {/* Github Stats */}
         <div className="max-w-4xl mx-auto px-4 py-8">
           <h1 className="text-2xl font-bold mb-6 text">GitHub Activity</h1>
@@ -102,7 +102,13 @@ export default async function Home() {
           </div>
         </div>
 
-        {/* Call to Action - View Projects */}
+        {/* Projects Section */}
+        <section id="projects" className="my-16 w-full max-w-4xl">
+          <h2 className="text-2xl font-bold mb-6 text-center">Projects</h2>
+          <ProjectsList projects={projects} allTags={allTags} />
+        </section>
+
+        {/* Call to Action - View Github */}
         <section className="text-center w-full">
           <a
             href="https://github.com/misterworker"
@@ -111,6 +117,12 @@ export default async function Home() {
             View My Github
           </a>
         </section>
+
+        {/* Certificates Section */}
+        <section id="certificates">
+          <Certificates />
+        </section>
+
       </main>
     </>
   );

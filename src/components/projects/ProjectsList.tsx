@@ -30,35 +30,33 @@ export default function ProjectsList({ projects, allTags }: ProjectsListProps) {
   });
 
   return (
-    <div className="w-full space-y-6">
-      {/* Search Input */}
-      <div className="relative w-full max-w-md">
+    <div className="w-full">
+      {/* Search and Filter Section */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
         <input
           type="text"
           placeholder="Search projects..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full px-4 py-2 rounded-md searchbar text-white focus:outline-none"
+          className="w-full md:w-80 px-4 py-2 rounded-md border border-gray-500"
         />
-      </div>
-
-      {/* Tag Filter */}
-      <div className="relative w-full max-w-md">
         <TagFilter tags={allTags} selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
       </div>
 
-      {/* Project Cards */}
-      {filteredProjects.map((project) => (
-        <ProjectCard
-          key={project.slug}
-          title={project.title}
-          description={project.description}
-          slug={project.slug}
-          tags={project.tags}
-          media={project.media}
-          githubRepo={project.githubRepo}
-        />
-      ))}
+      {/* Project Cards Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredProjects.map((project) => (
+          <ProjectCard
+            key={project.slug}
+            title={project.title}
+            description={project.description}
+            slug={project.slug}
+            tags={project.tags}
+            media={project.media}
+            githubRepo={project.githubRepo}
+          />
+        ))}
+      </div>
     </div>
   );
 }
