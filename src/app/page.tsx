@@ -8,7 +8,6 @@ import Certificates from "@/components/Certificates";
 import Technologies from "@/components/Technologies";
 import ProjectsList from '@/components/projects/ProjectsList';
 import projects from "@/data/projects";
-import Footer from "@/components/Footer";
 import FixedControls from '@/components/FixedControls';
 
 // Type definition for fetched data
@@ -48,7 +47,7 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <main className="flex flex-col items-center justify-center min-h-screen p-6 text overflow-x-hidden">
+      <main className="flex flex-col items-center justify-center min-h-screen p-6 pt-16 text overflow-x-hidden">
         {/* Auto-Twistable Profile Picture */}
         <div id="home" className="mb-6">
           <AutoTwistableProfilePicture
@@ -106,6 +105,16 @@ export default async function Home() {
             <GithubCalendar contributions={contributions} />
           </div>
         </div>
+
+        {/* Call to Action - View Github */}
+        <section className="text-center w-full">
+          <a
+            href="https://github.com/misterworker"
+            className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
+          >
+            View My Github
+          </a>
+        </section>
         
         {/* Certificates Section */}
         <section id="certificates">
@@ -117,19 +126,8 @@ export default async function Home() {
           <h2 className="text-2xl font-bold mb-6 text-center">Projects</h2>
           <ProjectsList projects={projects} allTags={allTags} />
         </section>
-
-        {/* Call to Action - View Github */}
-        <section className="text-center w-full">
-          <a
-            href="https://github.com/misterworker"
-            className="inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            View My Github
-          </a>
-        </section>
       </main>
       <FixedControls />
-      <Footer />
     </>
   );
 }
