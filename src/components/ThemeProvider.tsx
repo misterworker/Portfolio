@@ -32,6 +32,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // Update searchbar
       document.documentElement.style.setProperty("--searchbar-background", theme === "dark" ? "#1e2939" : "#f6f4f4");
       document.documentElement.style.setProperty("--searchbar-text", theme === "dark" ? "#e0e0e0" : "#171717");
+
+      // Update footer
+      document.documentElement.style.setProperty("--footer-background", theme === "dark" ? "#2D2D2D" : "#E9ECEF");
+      document.documentElement.style.setProperty("--footer-text", theme === "dark" ? "#e0e0e0" : "#171717");
       localStorage.setItem("theme", theme);
     }
   }, [theme, isLoaded]);

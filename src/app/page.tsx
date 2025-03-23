@@ -8,6 +8,7 @@ import Certificates from "@/components/Certificates";
 import Technologies from "@/components/Technologies";
 import ProjectsList from '@/components/projects/ProjectsList';
 import projects from "@/data/projects";
+import Footer from "@/components/Footer";
 
 // Type definition for fetched data
 type Contribution = {
@@ -126,6 +127,7 @@ export default async function Home() {
         </section>
 
       </main>
+      <Footer />
     </>
   );
 }
