@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
-import { BsSun, BsMoon } from "react-icons/bs";
+import { BsSun, BsMoon, BsLockFill, BsUnlock } from "react-icons/bs";
 import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
@@ -19,13 +19,39 @@ export default function Header() {
 
   const [isVisible, setIsVisible] = useState(true);
   const [activeSection, setActiveSection] = useState("/");
+  const [isLocked, setIsLocked] = useState(false);
   const lastScrollY = useRef(0);
+
+  // Load the locked state from localStorage on initial render
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedLockState = localStorage.getItem("headerLocked");
+      if (savedLockState !== null) {
+        setIsLocked(savedLockState === "true");
+      }
+    }
+  }, []);
+
+  // Toggle lock state and save to localStorage
+  const toggleLock = () => {
+    const newLockState = !isLocked;
+    setIsLocked(newLockState);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("headerLocked", newLockState.toString());
+    }
+    // If locking, make sure header is visible
+    if (newLockState) {
+      setIsVisible(true);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       if (typeof window !== "undefined") {
-        // Handle header visibility
-        setIsVisible(window.scrollY < lastScrollY.current);
+        // Skip header visibility changes if locked
+        if (!isLocked) {
+          setIsVisible(window.scrollY < lastScrollY.current);
+        }
         lastScrollY.current = window.scrollY;
         
         // Handle section detection
@@ -56,7 +82,7 @@ export default function Header() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [navItems]);
+  }, [navItems, isLocked]);
 
   // Handle initial hash in URL
   useEffect(() => {
@@ -71,7 +97,7 @@ export default function Header() {
     <header
       className={`fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-4xl rounded-xl backdrop-blur-lg transition-all z-50 
       ${theme === "dark" ? "bg-gray-900/60" : "bg-white/60"} 
-      ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
+      ${isVisible || isLocked ? "translate-y-0" : "-translate-y-full"}`}
     >
       <div className="w-full flex flex-wrap items-center justify-between px-4 sm:px-6 py-3">
         {/* Navigation */}
@@ -97,8 +123,22 @@ export default function Header() {
           </ul>
         </nav>
 
-        {/* Theme Toggle */}
-        <div className="ml-auto mt-4 sm:mt-0">
+        {/* Controls */}
+        <div className="ml-auto mt-4 sm:mt-0 flex items-center space-x-3">
+          {/* Lock Toggle */}
+          <div
+            className="p-1.5 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            onClick={toggleLock}
+            title={isLocked ? "Unlock header (allow hiding on scroll)" : "Lock header (prevent hiding on scroll)"}
+          >
+            {isLocked ? (
+              <BsLockFill className={`${theme === "dark" ? "text-blue-400" : "text-blue-500"}`} size={18} />
+            ) : (
+              <BsUnlock className="text-gray-500" size={18} />
+            )}
+          </div>
+
+          {/* Theme Toggle */}
           <div
             className="relative w-12 h-6 flex items-center justify-between bg-gray-700 rounded-full cursor-pointer px-1"
             onClick={toggleTheme}
