@@ -33,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       ) : (
         <>
           <div className="flex justify-between items-center mb-4">
-            <NextLink href="/projects" className="flex items-center text-sm hover:text-blue-400">
+            <NextLink href="/" className="flex items-center text-sm hover:text-blue-400">
               <HiChevronLeft className="mr-1" />Back
             </NextLink>
             <button

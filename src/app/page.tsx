@@ -49,7 +49,7 @@ export default async function Home() {
       <Header />
       <main className="flex flex-col items-center justify-center min-h-screen p-6 text overflow-x-hidden">
         {/* Auto-Twistable Profile Picture */}
-        <div className="mb-6">
+        <div id="home" className="mb-6">
           <AutoTwistableProfilePicture
             src="/others/goober_pfp.jpg"
             alt="Profile Picture"
@@ -90,7 +90,9 @@ export default async function Home() {
         </section>
 
         {/* Technologies Used */}
-        <Technologies />
+        <section id="skills">
+          <Technologies />
+        </section>
 
         {/* Github Stats */}
         <div className="max-w-4xl mx-auto px-4 py-8">
@@ -104,6 +106,11 @@ export default async function Home() {
             <GithubCalendar contributions={contributions} />
           </div>
         </div>
+        
+        {/* Certificates Section */}
+        <section id="certificates">
+          <Certificates />
+        </section>
 
         {/* Projects Section */}
         <section id="projects" className="my-16 w-full max-w-4xl">
@@ -120,12 +127,6 @@ export default async function Home() {
             View My Github
           </a>
         </section>
-
-        {/* Certificates Section */}
-        <section id="certificates">
-          <Certificates />
-        </section>
-
       </main>
       <Footer />
     </>
