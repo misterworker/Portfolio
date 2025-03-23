@@ -9,6 +9,7 @@ import Technologies from "@/components/Technologies";
 import ProjectsList from '@/components/projects/ProjectsList';
 import projects from "@/data/projects";
 import Footer from "@/components/Footer";
+import FixedControls from '@/components/FixedControls';
 
 // Type definition for fetched data
 type Contribution = {
@@ -55,7 +56,6 @@ export default async function Home() {
             alt="Profile Picture"
             width={150}
             height={150}
-            twistInterval={3500}
             twistDuration={2500}
             twistDegrees={180}
           />
@@ -67,7 +67,7 @@ export default async function Home() {
         {/* About Me Section */}
         <section className="max-w-xl text-center mb-10 w-full">
           <p className="text-xl font-semibold mb-6">
-            Application Developer, Data Analyst, Casual Armwrestler.
+            AI Application Developer, Data Analyst, Casual Armwrestler.
           </p>
           <p className="text mb-4">
             I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at
@@ -128,6 +128,7 @@ export default async function Home() {
           </a>
         </section>
       </main>
+      <FixedControls />
       <Footer />
     </>
   );

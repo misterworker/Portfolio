@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "./ThemeProvider";
-import { BsSun, BsMoon, BsLockFill, BsUnlock } from "react-icons/bs";
 import { useState, useEffect, useRef } from "react";
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const pathname = usePathname();
 
   const navItems = [
@@ -32,18 +31,23 @@ export default function Header() {
     }
   }, []);
 
-  // Toggle lock state and save to localStorage
-  const toggleLock = () => {
-    const newLockState = !isLocked;
-    setIsLocked(newLockState);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("headerLocked", newLockState.toString());
-    }
-    // If locking, make sure header is visible
-    if (newLockState) {
-      setIsVisible(true);
-    }
-  };
+  // Listen for custom event from FixedControls component
+  useEffect(() => {
+    const handleLockChange = (event: CustomEvent<{ isLocked: boolean }>) => {
+      setIsLocked(event.detail.isLocked);
+      if (event.detail.isLocked) {
+        setIsVisible(true);
+      }
+    };
+  
+    const eventListener = (e: Event) => handleLockChange(e as CustomEvent<{ isLocked: boolean }>);
+  
+    window.addEventListener("headerLockChanged", eventListener);
+    return () => {
+      window.removeEventListener("headerLockChanged", eventListener);
+    };
+  }, []);
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,7 +105,7 @@ export default function Header() {
     >
       <div className="w-full flex flex-wrap items-center justify-between px-4 sm:px-6 py-3">
         {/* Navigation */}
-        <nav className="w-full sm:w-auto">
+        <nav className="w-full">
           <ul className="flex flex-wrap justify-center sm:justify-start gap-x-4 gap-y-6 sm:gap-y-0 sm:gap-x-6">
             {navItems.map((item) => (
               <li key={item.href} className="flex-shrink-0">
@@ -122,35 +126,6 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-
-        {/* Controls */}
-        <div className="ml-auto mt-4 sm:mt-0 flex items-center space-x-3">
-          {/* Lock Toggle */}
-          <div
-            className="p-1.5 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            onClick={toggleLock}
-            title={isLocked ? "Unlock header (allow hiding on scroll)" : "Lock header (prevent hiding on scroll)"}
-          >
-            {isLocked ? (
-              <BsLockFill className={`${theme === "dark" ? "text-blue-400" : "text-blue-500"}`} size={18} />
-            ) : (
-              <BsUnlock className="text-gray-500" size={18} />
-            )}
-          </div>
-
-          {/* Theme Toggle */}
-          <div
-            className="relative w-12 h-6 flex items-center justify-between bg-gray-700 rounded-full cursor-pointer px-1"
-            onClick={toggleTheme}
-          >
-            <BsSun className="text-yellow-400" size={14} />
-            <div
-              className={`absolute w-4 h-4 bg-white rounded-full shadow-md transition-all duration-300 
-                ${theme === "dark" ? "left-[5%]" : "left-[60%]"}`}
-            />
-            <BsMoon className="text-black" size={14} />
-          </div>
-        </div>
       </div>
     </header>
   );

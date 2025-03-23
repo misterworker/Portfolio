@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "@/components/Header";
 import Sidebar from "@/components/projects/slug/SlugSidebar";
 import ProjectDetails from "@/components/projects/slug/projectDetails";
 
@@ -44,8 +43,6 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
 
   return (
     <div className="flex min-h-screen">
-      <Header />
-
       {/* Sidebar */}
       <Sidebar
         headers={headers}
