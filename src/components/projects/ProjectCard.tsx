@@ -47,44 +47,32 @@ export default function ProjectCard({
     ">
       {/* Project Media - Swiper Carousel */}
       <div className="w-full h-48 sm:h-56 md:h-64 overflow-hidden relative">
-        {mediaArray.length > 1 ? (
-          <Swiper
-            spaceBetween={0}
-            navigation={true}
-            pagination={{ clickable: true }}
-            onSwiper={setSwiperRef}
-            zoom={true}
-            loop={true}
-            modules={[Pagination, Navigation, Zoom]}
-            className="h-full w-full"
-          >
-            {mediaArray.map((image, index) => (
-              <SwiperSlide key={index} className="h-full">
-                <div className="h-full w-full flex items-center justify-center">
-                  <img
-                    src={image}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/projects/${slug}`);
-                    }}
-                    alt={`${title} image ${index + 1}`}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <img
-            src={mediaArray[0]}
-            onClick={(e) => {
-              e.stopPropagation();
-              router.push(`/projects/${slug}`);
-            }}
-            alt={title}
-            className="w-full h-full object-contain"
-          />
-        )}
+        <Swiper
+          spaceBetween={0}
+          navigation={true}
+          pagination={{ clickable: true }}
+          onSwiper={setSwiperRef}
+          zoom={true}
+          loop={true}
+          modules={[Pagination, Navigation, Zoom]}
+          className="h-full w-full"
+        >
+          {mediaArray.map((image, index) => (
+            <SwiperSlide key={index} className="h-full">
+              <div className="h-full w-full flex items-center justify-center">
+                <img
+                  src={image}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/projects/${slug}`);
+                  }}
+                  alt={`${title} image ${index + 1}`}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
         {/* Overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
