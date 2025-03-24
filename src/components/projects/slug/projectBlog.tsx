@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "@/components/projects/slug/SlugSidebar";
 import ProjectDetails from "@/components/projects/slug/projectDetails";
+import { HiChevronLeft } from "react-icons/hi";
+import NextLink from "next/link";
 
 interface ProjectProps {
   project: {
@@ -34,28 +36,38 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
       id: item.id,
     }));
 
-  // Sidebar collapse state
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  // State to track if we're on mobile or desktop
+  const [isMobile, setIsMobile] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
+  // Check screen size
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    // Check on mount
+    checkScreenSize();
+    
+    // Listen for window resize
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <Sidebar
-        headers={headers}
-        isCollapsed={isSidebarCollapsed}
-        toggleSidebar={toggleSidebar}
-      />
+      <Sidebar headers={headers} />
 
       {/* Main Content */}
       <div
-        className={`flex-1 overflow-y-auto p-6 transition-all duration-300 ${
-          isSidebarCollapsed ? "ml-14" : "ml-64"
-        }`}
+        className={`flex-1 overflow-y-auto p-6 transition-all duration-300
+          ${isMobile ? "ml-0" : "ml-64"}`}
       >
+        <NextLink href="/" className="inline-flex items-center text-sm hover:text-blue-400 mb-4">
+          <HiChevronLeft className="mr-1" />Back
+        </NextLink>
+        
         <ProjectDetails project={project} />
 
         {/* Render media content */}
@@ -85,31 +97,31 @@ export default function ProjectBlog({ project, slugProject }: ProjectProps) {
                     )}
                   </div>
                 );
-                case "video":
-                  const isYouTubeLink = item.content.includes("youtube.com") || item.content.includes("youtu.be");
-                
-                  return (
-                    <div key={item.id} className="mt-4">
-                      {isYouTubeLink ? (
-                        <iframe
-                          className="w-full max-h-[500px] rounded-md"
-                          src={item.content}
-                          title="YouTube video"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      ) : (
-                        // Fallback for non-YouTube videos (standard <video> tag)
-                        <video controls className="w-full max-h-[500px] object-contain rounded-md">
-                          <source src={item.content} />
-                          Your browser does not support the video tag.
-                        </video>
-                      )}
-                      {item.desc && (
-                        <p className="italic text-gray-400 mt-2 text-center">{item.desc}</p>
-                      )}
-                    </div>
-                  );                
+              case "video":
+                const isYouTubeLink = item.content.includes("youtube.com") || item.content.includes("youtu.be");
+              
+                return (
+                  <div key={item.id} className="mt-4">
+                    {isYouTubeLink ? (
+                      <iframe
+                        className="w-full max-h-[500px] rounded-md"
+                        src={item.content}
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    ) : (
+                      // Fallback for non-YouTube videos (standard <video> tag)
+                      <video controls className="w-full max-h-[500px] object-contain rounded-md">
+                        <source src={item.content} />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                    {item.desc && (
+                      <p className="italic text-gray-400 mt-2 text-center">{item.desc}</p>
+                    )}
+                  </div>
+                );                
               case "header":
                 return (
                   <div key={item.id} id={item.id}>
