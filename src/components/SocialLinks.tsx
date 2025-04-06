@@ -4,6 +4,11 @@ import { BsGithub, BsLinkedin, BsTelegram, BsFillEnvelopeFill } from "react-icon
 import { FaCopy } from "react-icons/fa";
 import { useState } from "react";
 
+const email = "ethanroo2016@gmail.com";
+const subject = "Portfolio Reach Out";
+const body = "Hey Ethan...";
+const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
 const SOCIAL_LINKS = [
   {
     href: "https://github.com/misterworker",
@@ -21,7 +26,7 @@ const SOCIAL_LINKS = [
     icon: <BsTelegram  size={20} />,
   },
   {
-    href: "mailto:ethanroo2016@gmail.com",
+    href: mailtoLink,
     label: "Email",
     icon: <BsFillEnvelopeFill size={20} />,
   },
