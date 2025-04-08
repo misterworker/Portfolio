@@ -66,15 +66,17 @@ export default async function Home() {
         {/* About Me Section */}
         <section className="max-w-xl text-center mb-10 w-full">
           <p className="text-xl font-semibold mb-6">
-            AI Application Developer, Data Analyst, Casual Armwrestler.
+            AI Application Developer, Data Analyst, Casual Hybrid Athlete.
           </p>
           <p className="text mb-4">
-            I haven't always been in the tech space, but my interest piqued when I entered <b>Applied AI & Analytics</b> at
-            <b> Nanyang Polytechnic</b>. Since then, I founded a startup called <b>Maibel.ai</b> and created various personal projects.
-            I am well versed in areas like Machine Learning, Deep Learning, Data Analysis, as well as creating Generative AI applications.
+            My interest in tech piqued when I entered <b>Applied AI & Analytics</b> at Singapore <b>Nanyang Polytechnic</b>. 
+            Since then, I made a mobile application for a youth project where I played a pivotal role as a founding AI engineer,
+            created various personal projects, and interned at <b>National Computer Systems Singapore</b>.
+            I am well versed in areas like Machine & Deep Learning, Data Analysis and creating Generative AI applications.
           </p>
           <p className="text mb-6">
-            I also take an interest in fitness, casually trying out powerlifting, bodybuilding, and most recently <b>armwrestling</b>.
+            I also take an interest in fitness, with a recent passion for <b>Calisthenics</b>, all while maintaining my 
+            cardiovascular health and bodybuilding progress.
           </p>
         </section>
 
