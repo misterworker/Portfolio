@@ -2,15 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const env = process.env.NODE_ENV
-let API_URL:string
-if(env == "development"){
-  API_URL = "http://127.0.0.1:8000"
-}
-else if (env == "production"){
-  API_URL = process.env.PORTFOLIO_BOT_LINK as string
-}
-
 interface Message {
   from: "user" | "assistant";
   content: string;
@@ -24,6 +15,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     scrollToBottom();
@@ -34,15 +26,16 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
   };
 
   const sendMessage = async () => {
-    if (!input.trim()) return;
-    const userMessage = input;
+    const userMessage = input.trim();
+    if (!userMessage) return;
+
     setMessages((prev) => [...prev, { from: "user", content: userMessage }]);
     setInput("");
     setWaiting(true);
     setInterrupted(false);
 
     try {
-      const res = await fetch(`${API_URL}/chat`, {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -54,53 +47,64 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
 
       const data = await res.json();
 
+      if (data.response) {
+        setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
+      }
+
       if (data.other_name === "interrupt") {
         setInterrupted(true);
       }
 
       if (data.other_name === "provide_feedback") {
-        setFeedbackMsg(data.other_msg);  // Capture the feedback message
+        setFeedbackMsg(data.other_msg);
       }
-
-      setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
     } catch (error) {
       setMessages((prev) => [...prev, { from: "assistant", content: "⚠️ Error talking to assistant." }]);
     }
 
     setWaiting(false);
+    inputRef.current?.focus();
   };
 
   const handleResume = async (action: boolean) => {
     setInterrupted(false);
     setWaiting(true);
     try {
-      const res = await fetch(`${API_URL}/resume`, {
+      const res = await fetch("/api/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action, fingerprint }),
       });
 
       const data = await res.json();
-      setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
+      if (data.response) {
+        setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
+      }
+
+      if (data.other_name === "provide_feedback") {
+        setFeedbackMsg(data.other_msg);
+      }
     } catch {
       setMessages((prev) => [...prev, { from: "assistant", content: "⚠️ Error resuming conversation." }]);
     }
 
     setWaiting(false);
+    inputRef.current?.focus();
   };
 
   const handleWipe = async () => {
-    const res = await fetch(`${API_URL}/wipe`, {
+    const res = await fetch("/api/wipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fingerprint }),
     });
 
     const data = await res.json();
-    setMessages([{ from: "assistant", content: data.response }]);
+    if (data.response) {
+      setMessages([{ from: "assistant", content: data.response }]);
+    }
   };
 
-  // Generate the mailto link for feedback
   const generateMailtoLink = () => {
     if (!feedbackMsg) return "";
     const subject = encodeURIComponent("Feedback for Portfolio");
@@ -122,7 +126,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`px-3 py-2 rounded-lg ${
+            className={`px-3 py-2 rounded-lg whitespace-pre-wrap ${
               msg.from === "user"
                 ? "bg-blue-100 dark:bg-blue-700 text-right self-end"
                 : "bg-gray-200 dark:bg-gray-700 text-left self-start"
@@ -168,15 +172,25 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         </div>
       )}
 
-      <input
-        type="text"
-        placeholder="Type a message..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        disabled={waiting || interrupted}
-        className="mt-2 p-2 w-full border border-gray-300 dark:border-gray-700 rounded focus:outline-none dark:bg-gray-700 dark:text-white"
-      />
+      <div className="mt-2 flex">
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={input}
+          ref={inputRef}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          disabled={waiting || interrupted}
+          className="p-2 flex-1 border border-gray-300 dark:border-gray-700 rounded-l focus:outline-none dark:bg-gray-700 dark:text-white"
+        />
+        <button
+          onClick={sendMessage}
+          disabled={waiting || interrupted}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 rounded-r cursor-pointer"
+        >
+          Send
+        </button>
+      </div>
     </div>
   );
 }
