@@ -1,8 +1,9 @@
 "use client";
 
 import { useTheme } from "./ThemeProvider";
-import { BsSun, BsMoon, BsLockFill, BsUnlock, BsQuestionCircle } from "react-icons/bs";
+import { BsRobot, BsSun, BsMoon, BsLockFill, BsUnlock, BsQuestionCircle } from "react-icons/bs";
 import { useState, useEffect } from "react";
+import BotChat from "@/components/BotChat"
 
 interface FixedControlsProps {
   hideLock?: boolean;
@@ -46,6 +47,9 @@ export default function FixedControls({
 }: FixedControlsProps) {
   const { theme, toggleTheme } = useTheme();
   const [isLocked, setIsLocked] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+
+  const toggleChat = () => setShowChat(!showChat);
 
   // Load the locked state from localStorage on initial render
   useEffect(() => {
@@ -73,6 +77,25 @@ export default function FixedControls({
   };
 
   return (
+    <>
+    {/* Left-side: Bot Chat */}
+    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-2">
+
+    <TooltipWrapper tooltip="Chat with Assistant">
+      <div
+        className={`p-3 rounded-full cursor-pointer shadow-lg transition-colors ${
+          theme === "dark" ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-100"
+        }`}
+        onClick={() => setShowChat(true)}
+      >
+        <BsRobot className={`${theme === "dark" ? "text-green-400" : "text-green-600"}`} size={20} />
+      </div>
+    </TooltipWrapper>
+
+    {showChat && <BotChat fingerprint="7" onClose={() => setShowChat(false)} />}
+
+    </div>
+
     <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
       {/* Lock Toggle */}
       {!hideLock && (
@@ -125,5 +148,6 @@ export default function FixedControls({
         </TooltipWrapper>
       )}
     </div>
+    </>
   );
 }
