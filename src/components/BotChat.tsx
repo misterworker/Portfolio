@@ -80,7 +80,7 @@ export default function BotChat({ onClose }: { onClose: () => void }) {
       const res = await fetch("/api/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action, userId }),
+        body: JSON.stringify({ action: action, user_id: userId, }),
       });
 
       const data = await res.json();
@@ -103,7 +103,7 @@ export default function BotChat({ onClose }: { onClose: () => void }) {
     const res = await fetch("/api/wipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
+      body: JSON.stringify({ user_id: userId, }),
     });
 
     const data = await res.json();
@@ -123,7 +123,7 @@ export default function BotChat({ onClose }: { onClose: () => void }) {
     const handleBeforeUnload = () => {
       navigator.sendBeacon(
         "/api/wipe",
-        new Blob([JSON.stringify({ userId })], { type: "application/json" })
+        new Blob([JSON.stringify({ user_id: userId })], { type: "application/json" })
       );
     };
 
