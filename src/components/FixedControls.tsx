@@ -86,7 +86,7 @@ export default function FixedControls({
         className={`p-3 rounded-full cursor-pointer shadow-lg transition-colors ${
           theme === "dark" ? "bg-gray-800 hover:bg-gray-700" : "bg-white hover:bg-gray-100"
         }`}
-        onClick={() => setShowChat(true)}
+        onClick={toggleChat}
       >
         <BsRobot className={`${theme === "dark" ? "text-green-400" : "text-green-600"}`} size={20} />
       </div>

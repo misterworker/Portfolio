@@ -101,7 +101,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
 
     const data = await res.json();
     if (data.response) {
-      setMessages([{ from: "assistant", content: data.response }]);
+      setMessages([]);
     }
   };
 
@@ -126,7 +126,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`px-3 py-2 rounded-lg whitespace-pre-wrap ${
+            className={`px-3 py-2 rounded-lg break-words max-w-full ${
               msg.from === "user"
                 ? "bg-blue-100 dark:bg-blue-700 text-right self-end"
                 : "bg-gray-200 dark:bg-gray-700 text-left self-start"
@@ -143,13 +143,13 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
           Assistant paused for your input:
           <div className="flex justify-between mt-1">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs"
+              className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs cursor-pointer"
               onClick={() => handleResume(true)}
             >
               Continue
             </button>
             <button
-              className="bg-gray-400 hover:bg-gray-500 text-white px-2 py-1 rounded text-xs"
+              className="bg-gray-400 hover:bg-gray-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
               onClick={() => handleResume(false)}
             >
               Stop
@@ -159,7 +159,13 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
       )}
 
       {feedbackMsg && (
-        <div className="mt-4 text-sm text-green-600 dark:text-green-400">
+        <div className="mt-4 text-sm text-green-600 dark:text-green-400 relative bg-green-50 dark:bg-green-900 p-3 rounded">
+          <button
+            className="absolute top-1 right-2 text-green-700 dark:text-green-300 hover:text-green-900 dark:hover:text-white text-lg leading-none cursor-pointer"
+            onClick={() => setFeedbackMsg(null)}
+          >
+            &times;
+          </button>
           <p>Your feedback has been recorded! Would you like to send it to us?</p>
           <a
             href={generateMailtoLink()}
