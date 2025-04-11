@@ -40,7 +40,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           user_input: userMessage,
-          fingerprint,
+          fingerprint: fingerprint,
           num_rewind: 0,
         }),
       });
@@ -111,6 +111,19 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
     const body = encodeURIComponent(feedbackMsg);
     return `mailto:ethanroo2016@gmail.com?subject=${subject}&body=${body}`;
   };
+
+  // Wipe on tab close
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      navigator.sendBeacon(
+        "/api/wipe",
+        new Blob([JSON.stringify({ fingerprint })], { type: "application/json" })
+      );
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [fingerprint]);
 
   return (
     <div className="w-80 h-96 bg-white dark:bg-gray-900 text-black dark:text-white shadow-xl rounded-lg p-4 flex flex-col">
