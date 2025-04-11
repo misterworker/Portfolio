@@ -28,7 +28,7 @@ cd scripts
 pip install -r requirements.txt
 
 # Start the FastAPI application
-uvicorn contributions_git:app # You can change the username to yours!
+uvicorn contributions_git:app --port 8001
 
 # Open a new terminal or navigate back to the project root
 cd ..

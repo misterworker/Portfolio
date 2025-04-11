@@ -16,18 +16,11 @@ type Contribution = {
   contributions: number;
 };
 
-const env = process.env.NODE_ENV
-let link:string
-if(env == "development"){
-  link = "http://127.0.0.1:8000/contributions/misterworker"
-}
-else if (env == "production"){
-  link = process.env.CONTRIBUTIONS_LINK as string
-}
+const GITHUB_CONTRIBUTIONS_URL = process.env.CONTRIBUTIONS_LINK || "http://127.0.0.1:8001";
 
 const fetchContributions = async (): Promise<Contribution[]> => {
   try {
-    const res = await fetch(link, {
+    const res = await fetch(GITHUB_CONTRIBUTIONS_URL, {
       next: { revalidate: 600 }, // Cache data for 10 minutes
     });
 
