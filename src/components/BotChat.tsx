@@ -7,7 +7,13 @@ interface Message {
   content: string;
 }
 
-export default function BotChat({ fingerprint, onClose }: { fingerprint: string; onClose: () => void }) {
+function generateUUID() {
+  return crypto.randomUUID();
+}
+
+export default function BotChat({ onClose }: { onClose: () => void }) {
+  const [fingerprint] = useState(generateUUID);
+  const [userId] = useState(generateUUID);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [waiting, setWaiting] = useState(false);
@@ -39,8 +45,9 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_input: userMessage,
           fingerprint: fingerprint,
+          user_id: userId,
+          user_input: userMessage,
           num_rewind: 0,
         }),
       });
@@ -55,7 +62,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
         setInterrupted(true);
       }
 
-      if (data.other_name === "provide_feedback") {
+      if (data.other_name === "draft_email") {
         setFeedbackMsg(data.other_msg);
       }
     } catch (error) {
@@ -73,7 +80,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
       const res = await fetch("/api/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action, fingerprint }),
+        body: JSON.stringify({ action, userId }),
       });
 
       const data = await res.json();
@@ -96,7 +103,7 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
     const res = await fetch("/api/wipe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fingerprint }),
+      body: JSON.stringify({ userId }),
     });
 
     const data = await res.json();
@@ -112,18 +119,17 @@ export default function BotChat({ fingerprint, onClose }: { fingerprint: string;
     return `mailto:ethanroo2016@gmail.com?subject=${subject}&body=${body}`;
   };
 
-  // Wipe on tab close
   useEffect(() => {
     const handleBeforeUnload = () => {
       navigator.sendBeacon(
         "/api/wipe",
-        new Blob([JSON.stringify({ fingerprint })], { type: "application/json" })
+        new Blob([JSON.stringify({ userId })], { type: "application/json" })
       );
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, [fingerprint]);
+  }, [userId]);
 
   return (
     <div className="w-80 h-96 bg-white dark:bg-gray-900 text-black dark:text-white shadow-xl rounded-lg p-4 flex flex-col">

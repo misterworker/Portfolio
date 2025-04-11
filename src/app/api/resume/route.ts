@@ -3,13 +3,13 @@ import { NextResponse } from "next/server";
 const API_URL = process.env.PORTFOLIO_BOT_LINK || "http://127.0.0.1:8000";
 
 export async function POST(request: Request) {
-  const { action, fingerprint } = await request.json();
+  const { action, user_id } = await request.json();
 
   try {
     const res = await fetch(`${API_URL}/resume`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action, fingerprint }),
+      body: JSON.stringify({ action, user_id }),
     });
 
     const data = await res.json();

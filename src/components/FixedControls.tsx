@@ -50,7 +50,6 @@ export default function FixedControls({
   const [showChat, setShowChat] = useState(false);
 
   const toggleChat = () => setShowChat(!showChat);
-  const [fingerprint] = useState(() => crypto.randomUUID());
 
   // Load the locked state from localStorage on initial render
   useEffect(() => {
@@ -93,7 +92,7 @@ export default function FixedControls({
       </div>
     </TooltipWrapper>
 
-    {showChat && <BotChat fingerprint={fingerprint} onClose={() => setShowChat(false)} />}
+    {showChat && <BotChat onClose={() => setShowChat(false)} />}
 
     </div>
 
