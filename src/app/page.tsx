@@ -16,7 +16,7 @@ type Contribution = {
   contributions: number;
 };
 
-const GITHUB_CONTRIBUTIONS_URL = process.env.CONTRIBUTIONS_LINK || "http://127.0.0.1:8001";
+const GITHUB_CONTRIBUTIONS_URL = process.env.CONTRIBUTIONS_LINK || "http://127.0.0.1:8002";
 
 const fetchContributions = async (): Promise<Contribution[]> => {
   try {
