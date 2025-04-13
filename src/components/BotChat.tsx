@@ -34,70 +34,147 @@ export default function BotChat({ onClose }: { onClose: () => void }) {
   const sendMessage = async () => {
     const userMessage = input.trim();
     if (!userMessage) return;
-
+  
     setMessages((prev) => [...prev, { from: "user", content: userMessage }]);
     setInput("");
     setWaiting(true);
     setInterrupted(false);
-
+  
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fingerprint: fingerprint,
+          fingerprint,
           user_id: userId,
           user_input: userMessage,
           num_rewind: 0,
         }),
       });
-
-      const data = await res.json();
-
-      if (data.response) {
-        setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
-      }
-
-      if (data.other_name === "interrupt") {
-        setInterrupted(true);
-      }
-
-      if (data.other_name === "draft_email") {
-        setFeedbackMsg(data.other_msg);
+  
+      if (!res.body) throw new Error("No response body");
+  
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let assistantResponse = "";
+  
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+  
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+  
+        for (let i = 0; i < parts.length - 1; i++) {
+          const line = parts[i].trim();
+          if (!line.startsWith("data:")) continue;
+  
+          const jsonStr = line.replace(/^data:\s*/, "");
+          if (!jsonStr) continue;
+  
+          try {
+            const parsed = JSON.parse(jsonStr);
+  
+            if (parsed.response) {
+              assistantResponse += parsed.response;
+              setMessages((prev) => {
+                const last = prev[prev.length - 1];
+                if (last?.from === "assistant") {
+                  return [...prev.slice(0, -1), { from: "assistant", content: assistantResponse }];
+                } else {
+                  return [...prev, { from: "assistant", content: assistantResponse }];
+                }
+              });
+            }
+  
+            if (parsed.other_name === "interrupt") {
+              setInterrupted(true);
+            }
+  
+          } catch (err) {
+            console.error("❌ Failed to parse stream chunk:", err);
+          }
+        }
+  
+        buffer = parts[parts.length - 1];
       }
     } catch (error) {
+      console.error("Error talking to assistant:", error);
       setMessages((prev) => [...prev, { from: "assistant", content: "⚠️ Error talking to assistant." }]);
     }
-
+  
     setWaiting(false);
     inputRef.current?.focus();
-  };
+  };  
 
   const handleResume = async (action: boolean) => {
     setInterrupted(false);
     setWaiting(true);
+  
     try {
       const res = await fetch("/api/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: action, user_id: userId, }),
+        body: JSON.stringify({ action, user_id: userId }),
       });
+  
+      if (!res.body) throw new Error("No response body");
+  
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let assistantResponse = "";
+  
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+  
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+  
+        for (let i = 0; i < parts.length - 1; i++) {
+          const line = parts[i].trim();
+          if (!line.startsWith("data:")) continue;
+  
+          const jsonStr = line.replace(/^data:\s*/, "");
+          if (!jsonStr) continue;
+  
+          try {
+            const parsed = JSON.parse(jsonStr);
+  
+            if (parsed.response) {
+              assistantResponse += parsed.response;
+              setMessages((prev) => {
+                const last = prev[prev.length - 1];
+                if (last?.from === "assistant") {
+                  return [...prev.slice(0, -1), { from: "assistant", content: assistantResponse }];
+                } else {
+                  return [...prev, { from: "assistant", content: assistantResponse }];
+                }
+              });
+            }
 
-      const data = await res.json();
-      if (data.response) {
-        setMessages((prev) => [...prev, { from: "assistant", content: data.response }]);
+            if (parsed.other_name === "email") {
+              setFeedbackMsg(parsed.other_msg);
+            }
+  
+          } catch (err) {
+            console.error("❌ Failed to parse resume stream chunk:", err);
+          }
+        }
+  
+        buffer = parts[parts.length - 1];
       }
-
-      if (data.other_name === "provide_feedback") {
-        setFeedbackMsg(data.other_msg);
-      }
-    } catch {
+    } catch (error) {
+      console.error("Error resuming conversation:", error);
       setMessages((prev) => [...prev, { from: "assistant", content: "⚠️ Error resuming conversation." }]);
     }
-
+  
     setWaiting(false);
     inputRef.current?.focus();
   };
+  
 
   const handleWipe = async () => {
     const res = await fetch("/api/wipe", {
@@ -114,10 +191,16 @@ export default function BotChat({ onClose }: { onClose: () => void }) {
 
   const generateMailtoLink = () => {
     if (!feedbackMsg) return "";
-    const subject = encodeURIComponent("Feedback for Portfolio");
-    const body = encodeURIComponent(feedbackMsg);
-    return `mailto:ethanroo2016@gmail.com?subject=${subject}&body=${body}`;
+  
+    const subjectMatch = feedbackMsg.match(/Subject:\s*(.+)/);
+    const bodyMatch = feedbackMsg.match(/Body:\s*([\s\S]*)/);
+  
+    const subject = subjectMatch ? subjectMatch[1].trim() : "Feedback for Portfolio";
+    const body = bodyMatch ? bodyMatch[1].trim() : feedbackMsg;
+  
+    return `mailto:ethanroo2016@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
+  
 
   useEffect(() => {
     const handleBeforeUnload = () => {

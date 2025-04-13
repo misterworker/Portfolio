@@ -12,8 +12,18 @@ export async function POST(request: Request) {
       body: JSON.stringify({ action, user_id }),
     });
 
-    const data = await res.json();
-    return NextResponse.json(data);
+    if (!res.body) {
+      return NextResponse.json({ response: "⚠️ No response body" }, { status: 500 });
+    }
+
+    return new Response(res.body, {
+      status: res.status,
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      },
+    });
   } catch (error) {
     console.error("Error calling resume API:", error);
     return NextResponse.json({ response: "⚠️ Error resuming conversation." }, { status: 500 });
